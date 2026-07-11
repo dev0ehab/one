@@ -1,0 +1,61 @@
+
+    /*------------ start Of {{smallPluralName}} ----------*/
+    Route::get('{{smallPluralName}}', [
+        'uses'      => '{{capitalName}}Controller@index',
+        'as'        => '{{smallPluralName}}.index',
+        'title'     => '{{smallPluralName}}.index',
+        'icon'      => '<i class="feather icon-image"></i>',
+        'type'      => 'parent',
+        'sub_route' => false,
+        'child'     => ['{{smallPluralName}}.create', '{{smallPluralName}}.store', '{{smallPluralName}}.edit', '{{smallPluralName}}.update', '{{smallPluralName}}.show', '{{smallPluralName}}.delete', '{{smallPluralName}}.deleteAll']
+    ]);
+
+    # {{smallPluralName}} store
+    Route::get('{{smallPluralName}}/create', [
+        'uses'  => '{{capitalName}}Controller@create',
+        'as'    => '{{smallPluralName}}.create',
+        'title' => '{{smallPluralName}}.create_page'
+    ]);
+
+    # {{smallPluralName}} store
+    Route::post('{{smallPluralName}}/store', [
+        'uses'  => '{{capitalName}}Controller@store',
+        'as'    => '{{smallPluralName}}.store',
+        'title' => '{{smallPluralName}}.create'
+    ]);
+
+    # {{smallPluralName}} update
+    Route::get('{{smallPluralName}}/{id}/edit', [
+        'uses'  => '{{capitalName}}Controller@edit',
+        'as'    => '{{smallPluralName}}.edit',
+        'title' => '{{smallPluralName}}.edit_page'
+    ]);
+
+    # {{smallPluralName}} update
+    Route::put('{{smallPluralName}}/{id}', [
+        'uses'  => '{{capitalName}}Controller@update',
+        'as'    => '{{smallPluralName}}.update',
+        'title' => '{{smallPluralName}}.edit'
+    ]);
+
+    # {{smallPluralName}} show
+    Route::get('{{smallPluralName}}/{id}/Show', [
+        'uses'  => '{{capitalName}}Controller@show',
+        'as'    => '{{smallPluralName}}.show',
+        'title' => '{{smallPluralName}}.show',
+    ]);
+
+    # {{smallPluralName}} delete
+    Route::delete('{{smallPluralName}}/{id}', [
+        'uses'  => '{{capitalName}}Controller@destroy',
+        'as'    => '{{smallPluralName}}.delete',
+        'title' => '{{smallPluralName}}.delete',
+    ]);
+
+    # delete all {{smallPluralName}}
+    Route::post('delete-all-{{smallPluralName}}', [
+        'uses'  => '{{capitalName}}Controller@destroyAll',
+        'as'    => '{{smallPluralName}}.deleteAll',
+        'title' => '{{smallPluralName}}.delete_all',
+    ]);
+    /*------------ end Of {{smallPluralName}} ----------*/

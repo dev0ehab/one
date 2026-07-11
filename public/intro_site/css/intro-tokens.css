@@ -1,0 +1,41 @@
+/**
+
+ * Intro site design tokens (extends --main, --hover from Blade inline :root)
+
+ * Dark-tinted UI — backgrounds stay darker while brand colors come from settings.
+
+ */
+
+:root {
+
+    --intro-bg: #0c1017;
+
+    --intro-bg-muted: #121922;
+
+    --intro-surface: #161e2e;
+
+    --intro-surface-hover: #1c2739;
+
+    --intro-text: #e8edf5;
+
+    --intro-muted: #94a3b8;
+
+    --intro-border: rgba(148, 163, 184, 0.14);
+
+    --intro-radius-sm: 10px;
+
+    --intro-radius-md: 16px;
+
+    --intro-radius-lg: 24px;
+
+    --intro-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+
+    --intro-shadow-lg: 0 24px 56px rgba(0, 0, 0, 0.45);
+
+    --intro-header-h: 72px;
+
+    --intro-glass: rgba(15, 20, 30, 0.82);
+
+}
+
+

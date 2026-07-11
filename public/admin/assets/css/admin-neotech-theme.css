@@ -1,0 +1,2231 @@
+/**
+ * NeoTech admin shell — dark + slate gray accent, real light mode when not dark-layout.
+ * Dark mode uses soft charcoal (#121212 / #1E1E1E) — not pure black — for comfortable contrast.
+ * Vars live on body only (no :root dark defaults) so Light mode stays white/light gray.
+ */
+body.admin-neotech:not(.dark-layout) {
+  --neo-bg: #f8fafc;
+  --neo-surface: #ffffff;
+  --neo-surface-2: #f1f5f9;
+  --neo-surface-elevated: #ffffff;
+  --neo-border: rgba(15, 23, 42, 0.06);
+  --neo-border-strong: rgba(15, 23, 42, 0.12);
+  --neo-accent: var(--main, #475569);
+  --neo-accent-hover: var(--hover, #334155);
+  --neo-accent-end: #1e293b;
+  --neo-accent-soft: rgba(71, 85, 105, 0.12);
+  --neo-accent-soft: color-mix(in srgb, var(--main, #475569) 12%, transparent);
+  --neo-accent-glow: rgba(71, 85, 105, 0.28);
+  --neo-accent-glow: color-mix(in srgb, var(--main, #475569) 28%, transparent);
+  --neo-text: #0f172a;
+  --neo-muted: #64748b;
+  --neo-success: #10b981;
+  --neo-danger: #ef4444;
+  --neo-warning: #f59e0b;
+  --neo-info: #3b82f6;
+  --neo-radius: 12px;
+  --neo-radius-sm: 8px;
+  --neo-radius-xs: 6px;
+  --neo-card-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 4px 16px rgba(15, 23, 42, 0.04);
+  --neo-nav-floating: 0 1px 3px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.08);
+  --neo-sidebar-active-start: var(--main, #475569);
+  --neo-sidebar-active-end: var(--hover, #1e293b);
+  --neo-transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --neo-transition-slow: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.admin-neotech.dark-layout {
+  /* Soft dark (Material-inspired): avoid pure black / pure white */
+  --neo-bg: #121212;
+  --neo-surface: #1e1e1e;
+  --neo-surface-2: #252525;
+  --neo-surface-elevated: #1e1e1e;
+  --neo-border: rgba(255, 255, 255, 0.05);
+  --neo-border-strong: #2d2d2d;
+  --neo-accent: #94a3b8;
+  --neo-accent-hover: #cbd5e1;
+  --neo-accent-end: #64748b;
+  --neo-accent-soft: rgba(148, 163, 184, 0.22);
+  --neo-accent-glow: rgba(148, 163, 184, 0.38);
+  --neo-text: #e1e1e1;
+  --neo-muted: #a0a0a0;
+  --neo-radius: 12px;
+  --neo-radius-sm: 8px;
+  --neo-radius-xs: 6px;
+  --neo-card-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+  --neo-nav-floating: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --neo-sidebar-active-start: #94a3b8;
+  --neo-sidebar-active-end: #64748b;
+  --neo-success: #34d399;
+  --neo-danger: #f87171;
+  --neo-warning: #fbbf24;
+  --neo-info: #60a5fa;
+  --neo-transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --neo-transition-slow: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.admin-neotech {
+  background-color: var(--neo-bg) !important;
+  color: var(--neo-text);
+  font-family: 'Inter', 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --neo-sidebar-width: 280px;
+}
+
+body.admin-neotech a {
+  color: var(--neo-muted);
+}
+
+body.admin-neotech a:hover {
+  color: var(--neo-accent-hover);
+}
+
+body.admin-neotech .content-body {
+  color: var(--neo-text);
+}
+
+/* ----- App shell ----- */
+body.admin-neotech .app-content.content {
+  background: var(--neo-bg) !important;
+}
+
+body.admin-neotech .content-wrapper {
+  background: transparent !important;
+  padding-inline: 1.25rem;
+  padding-bottom: 0.5rem;
+}
+
+body.admin-neotech #dashboard-ecommerce {
+  background: transparent;
+}
+
+body.admin-neotech .content-overlay {
+  background: transparent;
+}
+
+/* ----- Floating navbar ----- */
+body.admin-neotech .header-navbar.floating-nav {
+  background: var(--neo-surface-elevated) !important;
+  border-radius: var(--neo-radius);
+  border: 1px solid var(--neo-border);
+  box-shadow: var(--neo-nav-floating);
+}
+
+body.admin-neotech .header-navbar .navbar-container {
+  background: transparent !important;
+}
+
+body.admin-neotech .header-navbar .nav-link,
+body.admin-neotech .header-navbar .bookmark-wrapper .nav-link {
+  color: var(--neo-text) !important;
+  font-weight: 700;
+}
+
+body.admin-neotech .header-navbar .dropdown-user .user-name,
+body.admin-neotech .header-navbar .dropdown-user .user-status {
+  color: var(--neo-muted) !important;
+}
+
+body.admin-neotech .header-navbar .dropdown-menu {
+  background: var(--neo-surface-elevated);
+  border: 1px solid var(--neo-border);
+  border-radius: var(--neo-radius-sm);
+  box-shadow: var(--neo-card-shadow);
+}
+
+body.admin-neotech .header-navbar .dropdown-menu .dropdown-item {
+  color: var(--neo-text);
+  font-weight: 700;
+}
+
+body.admin-neotech .header-navbar .dropdown-menu .dropdown-item:hover,
+body.admin-neotech .header-navbar .dropdown-menu .dropdown-item:focus {
+  background: transparent !important;
+  color: var(--neo-text) !important;
+}
+
+body.admin-neotech .admin-neotech-breadcrumb a,
+body.admin-neotech .admin-neotech-breadcrumb .user-name {
+  color: var(--neo-muted) !important;
+  font-family: inherit !important;
+}
+
+body.admin-neotech .admin-neotech-breadcrumb a:hover,
+body.admin-neotech .admin-neotech-breadcrumb a:focus {
+  color: var(--neo-muted) !important;
+}
+
+body.admin-neotech .hint-slash {
+  color: var(--neo-border-strong);
+}
+
+/* Navbar typography — bolder breadcrumb, language, user name */
+body.admin-neotech .header-navbar.floating-nav .admin-neotech-breadcrumb,
+body.admin-neotech .header-navbar.floating-nav .admin-neotech-breadcrumb a,
+body.admin-neotech .header-navbar.floating-nav .admin-neotech-breadcrumb .user-name {
+  font-weight: 900 !important;
+}
+
+body.admin-neotech .header-navbar.floating-nav .selected-language {
+  font-weight: 900 !important;
+}
+
+body.admin-neotech .header-navbar.floating-nav .dropdown-user .user-name {
+  font-weight: 900 !important;
+}
+
+body.admin-neotech .header-navbar.floating-nav .dropdown-user .user-status {
+  font-weight: 700 !important;
+}
+
+/* ----- Navbar layout / spacing (NeoTech) ----- */
+body.admin-neotech .header-navbar .navbar-wrapper {
+  padding-inline: 0.15rem;
+}
+
+body.admin-neotech .header-navbar .navbar-container.content {
+  padding-block: 0.75rem !important;
+  padding-inline: 1.35rem !important;
+  max-width: 100%;
+}
+
+body.admin-neotech .header-navbar .navbar-collapse {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1.1rem 1.35rem;
+}
+
+body.admin-neotech .header-navbar .bookmark-wrapper {
+  float: none !important;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-inline: 0 !important;
+  padding-inline-end: 0.5rem;
+  gap: 0.75rem;
+}
+
+body.admin-neotech .header-navbar .admin-neotech-navbar-actions {
+  float: none !important;
+  flex: 0 0 auto;
+}
+
+body.admin-neotech .header-navbar .resp-wrap-icon {
+  display: flex !important;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.85rem !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+body.admin-neotech .header-navbar .resp-wrap-icon.float-right {
+  float: none !important;
+}
+
+@media (max-width: 991.98px) {
+  body.admin-neotech .header-navbar .resp-wrap-icon {
+    flex-wrap: wrap;
+    gap: 0.65rem !important;
+  }
+}
+
+@media (min-width: 992px) {
+  body.admin-neotech .header-navbar .admin-neotech-navbar-actions {
+    padding-inline-start: 1rem;
+    margin-inline-start: 0.25rem;
+    border-inline-start: 1px solid var(--neo-border);
+  }
+}
+
+/* Header navbar: no hover/focus visual change (top bar links + icons row) */
+body.admin-neotech .header-navbar .nav-link:hover,
+body.admin-neotech .header-navbar .nav-link:focus,
+body.admin-neotech .header-navbar .bookmark-wrapper .nav-link:hover,
+body.admin-neotech .header-navbar .bookmark-wrapper .nav-link:focus {
+  color: var(--neo-text) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.admin-neotech .header-navbar .resp-wrap-icon > li.nav-item > a.nav-link,
+body.admin-neotech .header-navbar .resp-wrap-icon > li.dropdown > a.nav-link {
+  padding: 0.5rem 0.7rem !important;
+  border-radius: var(--neo-radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  transition: none;
+}
+
+body.admin-neotech .header-navbar .dropdown-user-link {
+  display: flex !important;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.35rem 0.5rem !important;
+}
+
+body.admin-neotech .header-navbar .dropdown-user-link .user-nav {
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+  gap: 0.1rem;
+}
+
+body.admin-neotech .header-navbar .dropdown-user-link img.round {
+  flex-shrink: 0;
+}
+
+body.admin-neotech .header-navbar .dropdown-user-link:hover,
+body.admin-neotech .header-navbar .dropdown-user-link:focus {
+  background: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+body.admin-neotech .admin-neotech-breadcrumb.breadcrumb-text {
+  line-height: 1.55;
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
+/* NeoTech sidebar width — overrides Vuexy 260px (vertical-menu, components, bootstrap-extended) */
+html body.admin-neotech:not([data-col='1-column']):not(.blank-page):not(.menu-collapsed) .content {
+  margin-left: 0;
+  margin-right: 0;
+  margin-inline-start: var(--neo-sidebar-width) !important;
+}
+
+html body.admin-neotech:not([data-col='1-column']):not(.blank-page).menu-collapsed .content {
+  margin-left: 0;
+  margin-right: 0;
+  margin-inline-start: 80px !important;
+}
+
+body.admin-neotech .main-menu .navbar-header {
+  width: var(--neo-sidebar-width) !important;
+}
+
+body.admin-neotech.menu-collapsed:not(.vertical-overlay-menu) .main-menu .navbar-header {
+  width: 80px !important;
+}
+
+body.admin-neotech.menu-collapsed .navbar .navbar-header.expanded {
+  width: var(--neo-sidebar-width) !important;
+}
+
+body.admin-neotech.vertical-layout.vertical-menu-modern.menu-expanded .navbar .navbar-header {
+  width: var(--neo-sidebar-width) !important;
+}
+
+body.admin-neotech.vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
+  width: var(--neo-sidebar-width) !important;
+}
+
+body.admin-neotech.vertical-layout.vertical-menu-modern.menu-expanded .main-menu .main-menu-footer {
+  width: var(--neo-sidebar-width) !important;
+}
+
+body.admin-neotech.vertical-layout.vertical-menu-modern.menu-expanded .footer {
+  margin-inline-start: var(--neo-sidebar-width) !important;
+}
+
+body.admin-neotech.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded {
+  width: var(--neo-sidebar-width) !important;
+}
+
+@media (min-width: 992px) {
+  body.admin-neotech.vertical-layout.vertical-menu-modern:not(.menu-collapsed) .main-menu,
+  body.admin-neotech.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded {
+    width: var(--neo-sidebar-width) !important;
+  }
+
+  body.admin-neotech.vertical-layout.vertical-menu-modern:not(.menu-collapsed) .navbar .navbar-header,
+  body.admin-neotech.vertical-layout.vertical-menu-modern.menu-collapsed .navbar .navbar-header.expanded {
+    width: var(--neo-sidebar-width) !important;
+  }
+
+  body.admin-neotech.vertical-layout.vertical-menu-modern:not(.menu-collapsed) .footer {
+    margin-inline-start: var(--neo-sidebar-width) !important;
+  }
+
+  body.admin-neotech.vertical-layout.vertical-menu-modern.menu-collapsed .footer {
+    margin-inline-start: 80px !important;
+  }
+
+  body.admin-neotech.vertical-layout.vertical-menu-modern.menu-flipped:not(.menu-collapsed) .content {
+    margin-inline-start: var(--neo-sidebar-width) !important;
+  }
+
+  body.admin-neotech.vertical-layout.vertical-menu-modern.menu-flipped.menu-collapsed .content {
+    margin-inline-start: 80px !important;
+  }
+
+  body.admin-neotech.vertical-layout.vertical-menu-modern.menu-flipped:not(.menu-collapsed) .navbar .navbar-container {
+    margin-inline-start: var(--neo-sidebar-width) !important;
+  }
+
+  body.admin-neotech.vertical-layout.vertical-menu-modern.menu-flipped.menu-collapsed .navbar .navbar-container {
+    margin-inline-start: 80px !important;
+  }
+
+  body.admin-neotech.vertical-layout.vertical-menu-modern.menu-flipped:not(.menu-collapsed) .footer {
+    margin-inline-start: var(--neo-sidebar-width) !important;
+  }
+
+  body.admin-neotech.vertical-layout.vertical-menu-modern.menu-flipped.menu-collapsed .footer {
+    margin-inline-start: 80px !important;
+  }
+}
+
+body.admin-neotech .header-navbar.floating-nav {
+  width: calc(
+    100vw - (100vw - 100%) - calc(2.2rem * 2) - var(--neo-sidebar-width)
+  ) !important;
+}
+
+body.admin-neotech.vertical-layout.vertical-menu-modern.menu-collapsed .header-navbar.floating-nav {
+  width: calc(100vw - (100vw - 100%) - 4.4rem - 80px) !important;
+}
+
+body.admin-neotech.vertical-layout.vertical-menu-modern.menu-collapsed .header-navbar.navbar-static-top {
+  width: calc(100vw - (100vw - 100%) - 80px) !important;
+  inset-inline-start: 80px;
+  inset-inline-end: auto;
+}
+
+body.admin-neotech .header-navbar.navbar-static-top {
+  width: calc(100vw - (100vw - 100%) - var(--neo-sidebar-width)) !important;
+  inset-inline-start: var(--neo-sidebar-width);
+  inset-inline-end: 0;
+}
+
+body.admin-neotech .header-navbar.fixed-top {
+  inset-inline-start: var(--neo-sidebar-width);
+  inset-inline-end: auto;
+}
+
+@media (min-width: 1200px) and (-ms-high-contrast: active),
+  (min-width: 1200px) and (-ms-high-contrast: none) {
+  body.admin-neotech:not([data-col='1-column']):not(.menu-collapsed) .header-navbar.floating-nav {
+    width: calc(100vw - (100vw - 100%) - 60px - var(--neo-sidebar-width)) !important;
+  }
+
+  body.admin-neotech:not([data-col='1-column']).menu-collapsed .header-navbar.floating-nav {
+    width: calc(100vw - (100vw - 100%) - 60px - 80px) !important;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  body.admin-neotech.vertical-layout.vertical-menu-modern .main-menu:dir(rtl) {
+    left: auto !important;
+    right: calc(-1 * var(--neo-sidebar-width)) !important;
+  }
+
+  body.admin-neotech.vertical-layout.vertical-menu-modern .main-menu:dir(ltr) {
+    right: auto !important;
+    left: calc(-1 * var(--neo-sidebar-width)) !important;
+  }
+}
+
+/* vertical-overlay (embedded in Vuexy vertical-menu.css) — body.vertical-overlay-menu */
+body.admin-neotech.vertical-overlay-menu .navbar .navbar-header {
+  width: var(--neo-sidebar-width) !important;
+}
+
+body.admin-neotech.vertical-overlay-menu .main-menu,
+body.admin-neotech.vertical-overlay-menu.menu-hide .main-menu {
+  width: var(--neo-sidebar-width);
+}
+
+body.admin-neotech.vertical-overlay-menu .main-menu:dir(rtl),
+body.admin-neotech.vertical-overlay-menu.menu-hide .main-menu:dir(rtl) {
+  left: auto;
+  right: calc(-1 * var(--neo-sidebar-width));
+}
+
+body.admin-neotech.vertical-overlay-menu .main-menu:dir(ltr),
+body.admin-neotech.vertical-overlay-menu.menu-hide .main-menu:dir(ltr) {
+  right: auto;
+  left: calc(-1 * var(--neo-sidebar-width));
+}
+
+body.admin-neotech.vertical-overlay-menu .main-menu .main-menu-footer {
+  width: var(--neo-sidebar-width);
+}
+
+body.admin-neotech.vertical-overlay-menu.menu-open .main-menu:dir(rtl) {
+  -webkit-transform: translate3d(calc(-1 * var(--neo-sidebar-width)), 0, 0);
+  transform: translate3d(calc(-1 * var(--neo-sidebar-width)), 0, 0);
+}
+
+body.admin-neotech.vertical-overlay-menu.menu-open .main-menu:dir(ltr) {
+  -webkit-transform: translate3d(var(--neo-sidebar-width), 0, 0);
+  transform: translate3d(var(--neo-sidebar-width), 0, 0);
+}
+
+body.admin-neotech.vertical-overlay-menu.menu-flipped .main-menu:dir(rtl) {
+  left: calc(-1 * var(--neo-sidebar-width));
+  right: auto;
+}
+
+body.admin-neotech.vertical-overlay-menu.menu-flipped .main-menu:dir(ltr) {
+  right: calc(-1 * var(--neo-sidebar-width));
+  left: auto;
+}
+
+body.admin-neotech.vertical-overlay-menu.menu-flipped .navbar .navbar-container:dir(rtl) {
+  margin-left: var(--neo-sidebar-width);
+  margin-right: 0;
+}
+
+body.admin-neotech.vertical-overlay-menu.menu-flipped .navbar .navbar-container:dir(ltr) {
+  margin-right: var(--neo-sidebar-width);
+  margin-left: 0;
+}
+
+body.admin-neotech.vertical-overlay-menu.menu-flipped.menu-open .main-menu:dir(rtl) {
+  -webkit-transform: translate3d(var(--neo-sidebar-width), 0, 0);
+  transform: translate3d(var(--neo-sidebar-width), 0, 0);
+}
+
+body.admin-neotech.vertical-overlay-menu.menu-flipped.menu-open .main-menu:dir(ltr) {
+  -webkit-transform: translate3d(calc(-1 * var(--neo-sidebar-width)), 0, 0);
+  transform: translate3d(calc(-1 * var(--neo-sidebar-width)), 0, 0);
+}
+
+/* ----- Sidebar ----- */
+body.admin-neotech .main-menu {
+  background: var(--neo-surface) !important;
+  border-right: 1px solid var(--neo-border);
+  box-shadow: 4px 0 24px rgba(15, 23, 42, 0.06);
+}
+
+body.admin-neotech.dark-layout .main-menu {
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35);
+}
+
+body.admin-neotech .main-menu .navbar-header {
+  background: transparent;
+  border-bottom: 1px solid var(--neo-border);
+}
+
+body.admin-neotech .main-menu .navbar-header .navbar-nav {
+  width: 100%;
+}
+
+body.admin-neotech .main-menu .navbar-header .navbar-nav .nav-item {
+  width: 100%;
+}
+
+body.admin-neotech .main-menu .navbar-header .navbar-brand {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  margin: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+body.admin-neotech .main-menu .brand-logo {
+  filter: brightness(1.05);
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu .brand-logo {
+  filter: none;
+}
+
+/*
+ * Vuexy sets .brand-logo to a sprite PNG; with real <img class="brand-logo"> that shows a blue tile.
+ */
+body.admin-neotech .main-menu .navbar-header .navbar-brand img.brand-logo,
+body.admin-neotech .main-menu .navbar-header .navbar-brand .brand-logo.img-logo {
+  background: none !important;
+  background-image: none !important;
+  display: block;
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+  max-height: 3rem;
+  margin-inline: auto;
+  object-fit: contain;
+}
+
+body.admin-neotech .main-menu .navigation {
+  background: transparent;
+}
+
+body.admin-neotech .main-menu .navigation .navigation-header {
+  color: var(--neo-muted);
+  padding: 1.25rem 1.5rem 0.5rem;
+  font-weight: 700;
+}
+
+body.admin-neotech .main-menu .navigation .navigation-header span {
+  font-weight: 700;
+}
+
+body.admin-neotech .main-menu .navigation li a {
+  color: var(--neo-muted) !important;
+  border-radius: var(--neo-radius-sm);
+  margin: 0.2rem 0.75rem;
+  padding: 0.65rem 1rem !important;
+  transition:
+    background var(--neo-transition-slow),
+    color var(--neo-transition-slow),
+    box-shadow var(--neo-transition-slow),
+    transform var(--neo-transition-slow),
+    border-color var(--neo-transition-slow) !important;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+}
+
+body.admin-neotech .main-menu .navigation li.nav-item > a {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+/* Sidebar nav items — elegant hover (active / open states preserved below) */
+body.admin-neotech .main-menu .navigation > li:not(.active):not(.sidebar-group-active) > a::before,
+body.admin-neotech .main-menu .navigation > li.has-sub:not(.sidebar-group-active) > a::before {
+  content: '';
+  position: absolute;
+  inset-block: 0.35rem;
+  inset-inline-start: 0;
+  width: 3px;
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, var(--neo-accent) 0%, var(--neo-accent-end) 100%);
+  opacity: 0;
+  transform: scaleY(0.4);
+  transition:
+    opacity var(--neo-transition-slow),
+    transform var(--neo-transition-slow);
+}
+
+body.admin-neotech .main-menu .navigation li a > i {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.12rem;
+  border-radius: 10px;
+  background: rgba(71, 85, 105, 0.12);
+  transition:
+    background var(--neo-transition-slow),
+    color var(--neo-transition-slow),
+    transform var(--neo-transition-slow),
+    box-shadow var(--neo-transition-slow) !important;
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation li a > i {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Top-level inactive — hover lift + accent bar */
+body.admin-neotech .main-menu .navigation > li:not(.sidebar-group-active):not(.active) > a:hover,
+body.admin-neotech .main-menu .navigation > li.has-sub:not(.sidebar-group-active) > a:hover {
+  margin: 0.2rem 0.75rem !important;
+  background: var(--neo-surface-2) !important;
+  color: var(--neo-text) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06) !important;
+  transform: translateX(3px);
+}
+
+html[dir='rtl'] body.admin-neotech .main-menu .navigation > li:not(.sidebar-group-active):not(.active) > a:hover,
+html[dir='rtl'] body.admin-neotech .main-menu .navigation > li.has-sub:not(.sidebar-group-active) > a:hover {
+  transform: translateX(-3px);
+}
+
+body.admin-neotech .main-menu .navigation > li:not(.sidebar-group-active):not(.active) > a:hover::before,
+body.admin-neotech .main-menu .navigation > li.has-sub:not(.sidebar-group-active) > a:hover::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+body.admin-neotech .main-menu .navigation > li:not(.sidebar-group-active):not(.active) > a:hover > i,
+body.admin-neotech .main-menu .navigation > li.has-sub:not(.sidebar-group-active) > a:hover > i {
+  color: var(--neo-accent-hover) !important;
+  background: var(--neo-accent-soft) !important;
+  box-shadow: 0 2px 8px var(--neo-accent-glow) !important;
+  transform: scale(1.06);
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation > li:not(.sidebar-group-active):not(.active) > a:hover,
+body.admin-neotech.dark-layout .main-menu .navigation > li.has-sub:not(.sidebar-group-active) > a:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation > li:not(.sidebar-group-active):not(.active) > a:hover > i,
+body.admin-neotech.dark-layout .main-menu .navigation > li.has-sub:not(.sidebar-group-active) > a:hover > i {
+  background: rgba(148, 163, 184, 0.2) !important;
+}
+
+/* Active leaf (top-level) */
+body.admin-neotech .main-menu .navigation > li.nav-item.active:not(.has-sub) > a:hover {
+  margin: 0.2rem 0.35rem !important;
+  background: linear-gradient(
+    135deg,
+    var(--neo-accent) 0%,
+    var(--neo-accent-end) 100%
+  ) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px var(--neo-accent-glow) !important;
+}
+
+body.admin-neotech .main-menu .navigation > li.nav-item.active:not(.has-sub) > a:hover > i {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Open section (parent row) */
+body.admin-neotech .main-menu .navigation > li.has-sub.sidebar-group-active > a:hover {
+  margin: 0.2rem 0.75rem !important;
+  background: var(--neo-surface-2) !important;
+  color: var(--neo-text) !important;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05) !important;
+  border-inline-start: 3px solid var(--neo-accent);
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation > li.has-sub.sidebar-group-active > a:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--neo-text) !important;
+}
+
+body.admin-neotech .main-menu .navigation > li.has-sub.sidebar-group-active > a:hover > i {
+  color: var(--neo-accent-hover) !important;
+  background: var(--neo-accent-soft) !important;
+  box-shadow: none !important;
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation > li.has-sub.sidebar-group-active > a:hover > i {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Submenu rows — inactive hover */
+body.admin-neotech .main-menu .navigation > li ul.menu-content li:not(.active) > a:hover {
+  margin: 0.15rem 0.35rem !important;
+  background: var(--neo-accent-soft) !important;
+  color: var(--neo-text) !important;
+  box-shadow: none !important;
+  padding-inline-start: 1.1rem !important;
+}
+
+body.admin-neotech .main-menu .navigation > li ul.menu-content li:not(.active) > a:hover > i {
+  color: var(--neo-accent-hover) !important;
+  background: rgba(71, 85, 105, 0.18) !important;
+  box-shadow: none !important;
+  transform: scale(1.08);
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation > li ul.menu-content li:not(.active) > a:hover {
+  background: rgba(148, 163, 184, 0.12) !important;
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation > li ul.menu-content li:not(.active) > a:hover > i {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+body.admin-neotech .main-menu .navigation > li.nav-item.active:not(.has-sub) > a {
+  margin: 0.2rem 0.35rem !important;
+  background: linear-gradient(
+    135deg,
+    var(--neo-accent) 0%,
+    var(--neo-accent-end) 100%
+  ) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px var(--neo-accent-glow);
+}
+
+/* Parent section (has submenu) when open / current branch — no purple pill */
+body.admin-neotech .main-menu .navigation > li.has-sub.sidebar-group-active > a {
+  background: rgba(15, 23, 42, 0.06) !important;
+  color: var(--neo-text) !important;
+  box-shadow: none !important;
+  border-inline-start: 3px solid var(--neo-accent);
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation > li.has-sub.sidebar-group-active > a {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--neo-text) !important;
+}
+
+body.admin-neotech .main-menu .navigation > li.nav-item.active:not(.has-sub) > a i {
+  color: #fff !important;
+}
+
+body.admin-neotech .main-menu .navigation > li.has-sub.sidebar-group-active > a i {
+  color: var(--neo-accent-hover) !important;
+}
+
+body.admin-neotech .main-menu .navigation > li.nav-item.active:not(.has-sub) > a > i {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+body.admin-neotech .main-menu .navigation > li.has-sub.sidebar-group-active > a > i {
+  background: var(--neo-accent-soft);
+  box-shadow: none;
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation > li.has-sub.sidebar-group-active > a > i {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Submenu active — pill + gradient (reference); hover matches active (no extra flash) */
+body.admin-neotech.dark-layout .main-menu .navigation > li ul.menu-content li.active > a,
+body.admin-neotech:not(.dark-layout) .main-menu .navigation > li ul.menu-content li.active > a {
+  margin: 0.15rem 0.22rem !important;
+  padding: 0.6rem 0.85rem !important;
+  border-radius: 8px !important;
+  background: linear-gradient(
+    135deg,
+    var(--neo-sidebar-active-start) 0%,
+    var(--neo-sidebar-active-end) 100%
+  ) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px var(--neo-accent-glow) !important;
+  border-inline-start: none !important;
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation > li ul.menu-content li.active > a:hover,
+body.admin-neotech.dark-layout .main-menu .navigation > li ul.menu-content li.active > a:focus,
+body.admin-neotech:not(.dark-layout) .main-menu .navigation > li ul.menu-content li.active > a:hover,
+body.admin-neotech:not(.dark-layout) .main-menu .navigation > li ul.menu-content li.active > a:focus {
+  margin: 0.15rem 0.22rem !important;
+  background: linear-gradient(
+    135deg,
+    var(--neo-sidebar-active-start) 0%,
+    var(--neo-sidebar-active-end) 100%
+  ) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px var(--neo-accent-glow) !important;
+  border-inline-start: none !important;
+}
+
+body.admin-neotech .main-menu .navigation > li ul.menu-content li.active > a > i {
+  background: rgba(255, 255, 255, 0.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  min-width: 2.25rem;
+  font-size: 0.65rem !important;
+  padding: 0 !important;
+  opacity: 1;
+}
+
+body.admin-neotech .main-menu .navigation > li ul.menu-content li.active > a:hover > i {
+  color: #fff !important;
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.22) !important;
+}
+
+body.admin-neotech .main-menu .navigation .menu-content .navigation-main .nav-item .menu-content {
+  background: rgba(15, 23, 42, 0.04);
+  border-radius: var(--neo-radius-sm);
+  margin: 0 0.5rem 0.5rem;
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation .menu-content .navigation-main .nav-item .menu-content {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+body.admin-neotech .main-menu .navigation .menu-content .navigation-main .nav-item .menu-content li a {
+  margin: 0.15rem 0.35rem;
+}
+
+body.admin-neotech .shadow-bottom {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    var(--neo-surface) 100%
+  );
+}
+
+body.admin-neotech.dark-layout .shadow-bottom {
+  background: linear-gradient(
+    180deg,
+    rgba(18, 18, 18, 0) 0%,
+    var(--neo-bg) 100%
+  );
+}
+
+/* ----- Footer ----- */
+body.admin-neotech .footer {
+  background: var(--neo-surface) !important;
+  border-top: 1px solid var(--neo-border);
+}
+
+body.admin-neotech .footer.footer-light {
+  background: var(--neo-surface) !important;
+}
+
+body.admin-neotech .footer .blue-grey,
+body.admin-neotech .footer p {
+  color: var(--neo-muted) !important;
+}
+
+body.admin-neotech .footer a {
+  color: var(--neo-accent-hover);
+}
+
+body.admin-neotech .footer .merchant-name {
+  color: var(--neo-muted);
+}
+
+/* ----- Cards & panels ----- */
+body.admin-neotech .card {
+  background: var(--neo-surface-elevated) !important;
+  border: 1px solid var(--neo-border) !important;
+  border-radius: var(--neo-radius) !important;
+  box-shadow: var(--neo-card-shadow);
+  color: var(--neo-text);
+}
+
+body.admin-neotech .card-header {
+  background: transparent !important;
+  border-bottom-color: var(--neo-border) !important;
+  color: var(--neo-text);
+}
+
+body.admin-neotech .card-title {
+  color: var(--neo-text);
+}
+
+body.admin-neotech .card-footer {
+  background: transparent !important;
+  border-top-color: var(--neo-border);
+}
+
+/* ----- Tables ----- */
+body.admin-neotech .table {
+  color: var(--neo-text);
+}
+
+body.admin-neotech .table thead th {
+  background: var(--neo-surface-2);
+  color: var(--neo-muted);
+  border-color: var(--neo-border);
+}
+
+body.admin-neotech .table td,
+body.admin-neotech .table th {
+  border-color: var(--neo-border);
+}
+
+body.admin-neotech .table:not(.table-dark):not(.table-light) tbody + tbody {
+  border-color: var(--neo-border);
+}
+
+body.admin-neotech .table-hover tbody tr:hover {
+  background-color: var(--neo-accent-soft);
+}
+
+body.admin-neotech .table-bordered {
+  border-color: var(--neo-border);
+}
+
+body.admin-neotech div.dataTables_wrapper .dataTables_filter input,
+body.admin-neotech div.dataTables_wrapper .dataTables_length select {
+  background: var(--neo-surface-2);
+  border: 1px solid var(--neo-border);
+  color: var(--neo-text);
+  border-radius: var(--neo-radius-sm);
+}
+
+/* ----- Tables (dark layout): Neo gray surfaces — override Vuexy navy #212744 / #262C49 ----- */
+body.admin-neotech.dark-layout .table {
+  background-color: var(--neo-surface) !important;
+}
+
+body.admin-neotech.dark-layout div.dataTables_wrapper .table.dataTable {
+  background-color: var(--neo-surface) !important;
+}
+
+body.admin-neotech.dark-layout .table thead tr th,
+body.admin-neotech.dark-layout .table thead tr td,
+body.admin-neotech.dark-layout .table .thead tr:not([class*='table-']) th,
+body.admin-neotech.dark-layout .table .thead tr:not([class*='table-']) td,
+body.admin-neotech.dark-layout div.dataTables_wrapper .table.dataTable thead th,
+body.admin-neotech.dark-layout div.dataTables_wrapper .table.dataTable thead td {
+  background-color: var(--neo-surface-2) !important;
+  color: var(--neo-text) !important;
+  border-color: var(--neo-border) !important;
+}
+
+body.admin-neotech.dark-layout .table tbody tr td,
+body.admin-neotech.dark-layout .table tbody tr th,
+body.admin-neotech.dark-layout div.dataTables_wrapper .table.dataTable tbody td,
+body.admin-neotech.dark-layout div.dataTables_wrapper .table.dataTable tbody th {
+  background-color: var(--neo-surface) !important;
+  color: var(--neo-text) !important;
+  border-color: var(--neo-border) !important;
+}
+
+body.admin-neotech.dark-layout .table.table-hover tbody tr:hover,
+body.admin-neotech.dark-layout .table.table-hover tbody tr:hover td,
+body.admin-neotech.dark-layout .table.table-hover tbody tr:hover th {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+body.admin-neotech.dark-layout .table.table-striped tbody tr:nth-of-type(odd),
+body.admin-neotech.dark-layout .table.table-striped tbody tr:nth-of-type(odd) td,
+body.admin-neotech.dark-layout .table.table-striped tbody tr:nth-of-type(odd) th,
+body.admin-neotech.dark-layout div.dataTables_wrapper .table.dataTable.table-striped tbody tr:nth-of-type(odd) td {
+  background-color: var(--neo-surface-2) !important;
+}
+
+body.admin-neotech.dark-layout div.dataTables_wrapper .table.dataTable.complex-headers tbody tr:nth-of-type(even),
+body.admin-neotech.dark-layout div.dataTables_wrapper .table.dataTable.table-striped tbody tr:nth-of-type(even) td {
+  background-color: var(--neo-surface) !important;
+}
+
+body.admin-neotech.dark-layout div.dataTables_wrapper .dt-buttons .buttons-copy,
+body.admin-neotech.dark-layout div.dataTables_wrapper .dt-buttons .buttons-excel,
+body.admin-neotech.dark-layout div.dataTables_wrapper .dt-buttons .buttons-pdf,
+body.admin-neotech.dark-layout div.dataTables_wrapper .dt-buttons .buttons-print,
+body.admin-neotech.dark-layout div.dataTables_wrapper .dt-buttons .btn-secondary {
+  background-color: var(--neo-surface-2) !important;
+  border-color: var(--neo-border-strong) !important;
+  color: var(--neo-text) !important;
+}
+
+body.admin-neotech.dark-layout div.dataTables_wrapper .table.dataTable tr.group td {
+  background-color: var(--neo-surface-2) !important;
+  color: var(--neo-text) !important;
+}
+
+/* ----- Forms ----- */
+body.admin-neotech .form-control,
+body.admin-neotech .custom-select,
+body.admin-neotech select.form-control {
+  background-color: var(--neo-surface-2);
+  border-color: var(--neo-border);
+  color: var(--neo-text);
+  border-radius: var(--neo-radius-sm);
+}
+
+body.admin-neotech .form-control:focus,
+body.admin-neotech .custom-select:focus {
+  background-color: var(--neo-surface-elevated);
+  border-color: var(--neo-accent);
+  color: var(--neo-text);
+  box-shadow: 0 0 0 0.2rem var(--neo-accent-soft);
+}
+
+body.admin-neotech .form-label,
+body.admin-neotech label {
+  color: var(--neo-muted);
+}
+
+body.admin-neotech .input-group-text {
+  background: var(--neo-surface-2);
+  border-color: var(--neo-border);
+  color: var(--neo-muted);
+}
+
+/* ----- Buttons ----- */
+body.admin-neotech .btn-primary {
+  background: linear-gradient(135deg, var(--neo-accent), var(--neo-accent-end));
+  border-color: transparent;
+  color: #fff;
+}
+
+body.admin-neotech .btn-primary:hover {
+  background: linear-gradient(135deg, var(--neo-accent-hover), var(--neo-accent));
+  box-shadow: 0 4px 16px var(--neo-accent-glow);
+  color: #fff;
+}
+
+body.admin-neotech .btn-outline-primary {
+  border-color: var(--neo-accent);
+  color: var(--neo-accent-hover);
+}
+
+body.admin-neotech .btn-outline-primary:hover {
+  background: var(--neo-accent-soft);
+  border-color: var(--neo-accent);
+  color: var(--neo-accent-hover);
+}
+
+body.admin-neotech .btn-secondary,
+body.admin-neotech .btn-light {
+  background: var(--neo-surface-2);
+  border-color: var(--neo-border);
+  color: var(--neo-text);
+}
+
+body.admin-neotech .badge-primary {
+  background: var(--neo-accent) !important;
+}
+
+/* ----- Pagination ----- */
+body.admin-neotech .pagination .page-link {
+  background: var(--neo-surface-2);
+  border-color: var(--neo-border);
+  color: var(--neo-text);
+}
+
+body.admin-neotech .pagination .page-item.active .page-link {
+  background: var(--neo-accent);
+  border-color: var(--neo-accent);
+  color: #fff;
+}
+
+/* ----- Modals ----- */
+body.admin-neotech .modal-content {
+  background: var(--neo-surface-elevated);
+  border: 1px solid var(--neo-border);
+  border-radius: var(--neo-radius);
+  color: var(--neo-text);
+}
+
+body.admin-neotech .modal-header {
+  border-bottom-color: var(--neo-border);
+}
+
+body.admin-neotech .modal-footer {
+  border-top-color: var(--neo-border);
+}
+
+body.admin-neotech .close {
+  color: var(--neo-text);
+  text-shadow: none;
+  opacity: 0.8;
+}
+
+/* ----- Select2 ----- */
+body.admin-neotech .select2-container--default .select2-selection--single {
+  background: var(--neo-surface-2);
+  border-color: var(--neo-border);
+  border-radius: var(--neo-radius-sm);
+  min-height: 38px;
+}
+
+body.admin-neotech .select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: var(--neo-text);
+  line-height: 36px;
+}
+
+body.admin-neotech .select2-dropdown {
+  background: var(--neo-surface-elevated);
+  border-color: var(--neo-border);
+}
+
+body.admin-neotech .select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background: var(--neo-accent);
+  color: #fff;
+}
+
+/* ----- Toastr ----- */
+body.admin-neotech #toast-container > div {
+  box-shadow: var(--neo-card-shadow);
+  border-radius: var(--neo-radius-sm);
+}
+
+/* ----- Misc ----- */
+body.admin-neotech .breadcrumb {
+  background: transparent;
+}
+
+body.admin-neotech .page-item.disabled .page-link {
+  background: var(--neo-surface);
+  color: var(--neo-muted);
+}
+
+body.admin-neotech .custom-switch .custom-control-label::before {
+  background-color: var(--neo-surface-2);
+  border-color: var(--neo-border);
+}
+
+body.admin-neotech .text-muted {
+  color: var(--neo-muted) !important;
+}
+
+body.admin-neotech .border,
+body.admin-neotech .border-top,
+body.admin-neotech .border-bottom {
+  border-color: var(--neo-border) !important;
+}
+
+/* ----- Filter sidebar (data tables) — replace Bootstrap cyan / Vuexy purple with NeoTech ----- */
+body.admin-neotech .searchTable .controls.border {
+  border-color: var(--neo-border-strong) !important;
+}
+
+body.admin-neotech .searchTable input.form-control,
+body.admin-neotech .searchTable textarea.form-control,
+body.admin-neotech .searchTable select.form-control {
+  border-color: var(--neo-border-strong) !important;
+}
+
+body.admin-neotech .searchTable .form-control:focus,
+body.admin-neotech .searchTable input.form-control:focus,
+body.admin-neotech .searchTable select.form-control:focus,
+body.admin-neotech .searchTable textarea.form-control:focus {
+  border-color: var(--neo-accent) !important;
+  box-shadow: 0 0 0 0.2rem var(--neo-accent-soft) !important;
+  outline: none !important;
+}
+
+body.admin-neotech .searchTable .select2-container {
+  width: 100% !important;
+}
+
+body.admin-neotech .searchTable .select2-container--default .select2-selection--single {
+  background-color: var(--neo-surface-2) !important;
+  border-color: var(--neo-border-strong) !important;
+}
+
+body.admin-neotech .searchTable .select2-container--default.select2-container--focus .select2-selection--single,
+body.admin-neotech .searchTable .select2-container--default.select2-container--open .select2-selection--single {
+  border-color: var(--neo-accent) !important;
+  box-shadow: 0 0 0 0.2rem var(--neo-accent-soft) !important;
+}
+
+body.admin-neotech .searchTable .select2-container--default .select2-selection--single:focus {
+  border-color: var(--neo-accent) !important;
+  box-shadow: 0 0 0 0.2rem var(--neo-accent-soft) !important;
+}
+
+body.admin-neotech.dark-layout .searchTable {
+  background-color: var(--neo-surface-elevated);
+  color: var(--neo-text);
+}
+
+body.admin-neotech.dark-layout .searchTable .forma label,
+body.admin-neotech.dark-layout .searchTable .forma h3 {
+  color: var(--neo-text);
+}
+
+body.admin-neotech:not(.dark-layout) .searchTable {
+  background-color: var(--neo-surface);
+}
+
+/* ----- Filter trigger button — Soft Dark greys (override Vuexy #212744 on dark-layout) ----- */
+body.admin-neotech .btn-searchTable {
+  background: var(--neo-surface-2) !important;
+  color: var(--neo-accent-hover) !important;
+  border: 1px solid var(--neo-border);
+}
+
+body.admin-neotech:not(.dark-layout) .btn-searchTable > i {
+  border: 1px dashed var(--neo-accent) !important;
+  border-radius: 50%;
+  color: var(--neo-accent-hover) !important;
+  outline: none !important;
+  background: transparent;
+  box-shadow: 0 0 0 2px var(--neo-accent-soft);
+}
+
+body.admin-neotech.dark-layout .btn-searchTable {
+  background: var(--neo-surface) !important;
+  color: var(--neo-text) !important;
+  border: 1px solid var(--neo-border-strong) !important;
+}
+
+body.admin-neotech.dark-layout .btn-searchTable > i {
+  border: 1px solid var(--neo-border-strong) !important;
+  border-radius: 50%;
+  background: var(--neo-surface-2) !important;
+  color: var(--neo-text) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/*
+ * Vuexy dark-layout: body.dark-layout .product-action > span { background: #212744 }
+ */
+body.admin-neotech.dark-layout .product-action > span {
+  background: transparent !important;
+}
+
+/* ----- Table row actions & badges (drop inline icon colors in Blade) ----- */
+body.admin-neotech .badge-info {
+  background-color: var(--neo-accent-soft) !important;
+  color: var(--neo-accent-hover) !important;
+}
+
+body.admin-neotech .product-action .action-edit a {
+  color: var(--neo-accent-hover);
+}
+
+body.admin-neotech .product-action .action-show a {
+  color: var(--neo-muted);
+}
+
+body.admin-neotech .product-action .text-info a {
+  color: var(--neo-muted);
+}
+
+body.admin-neotech .product-action span.text-primary:not(.action-edit) a {
+  color: var(--neo-accent-hover);
+}
+
+body.admin-neotech .product-action .text-success a {
+  color: #22c55e !important;
+}
+
+body.admin-neotech .product-action .text-warning a {
+  color: #ca8a04 !important;
+}
+
+body.admin-neotech .product-action .delete-row,
+body.admin-neotech .product-action .delete-row a,
+body.admin-neotech .product-action .delete-row .feather,
+body.admin-neotech .product-action .text-danger a {
+  color: #ea5455 !important;
+}
+
+body.admin-neotech .product-action a .feather,
+body.admin-neotech .product-action a i {
+  color: inherit;
+}
+
+/* ----- Nav tabs: zero hover (beat Bootstrap + Vuexy .nav.nav-tabs + a:hover) ----- */
+body.admin-neotech .nav-tabs {
+  border-bottom: 1px solid var(--neo-border);
+}
+
+body.admin-neotech .nav.nav-tabs .nav-item .nav-link,
+body.admin-neotech .nav-tabs .nav-item .nav-link,
+body.admin-neotech .nav-tabs .nav-link {
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  border-color: transparent !important;
+  color: var(--neo-muted) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-sizing: border-box !important;
+  transition: none !important;
+  -webkit-transition: none !important;
+}
+
+/* Inactive tab: no visual change on hover or mouse focus */
+body.admin-neotech .nav.nav-tabs .nav-item .nav-link:not(.active):hover,
+body.admin-neotech .nav.nav-tabs .nav-item .nav-link:not(.active):focus:not(:focus-visible),
+body.admin-neotech .nav.nav-tabs.nav-justified .nav-item a.nav-link:not(.active):hover,
+body.admin-neotech .nav.nav-tabs.nav-justified .nav-item a.nav-link:not(.active):focus:not(:focus-visible),
+body.admin-neotech .nav-tabs .nav-link:not(.active):hover,
+body.admin-neotech .nav-tabs .nav-link:not(.active):focus:not(:focus-visible),
+body.admin-neotech .nav-vertical .nav.nav-tabs .nav-item .nav-link:not(.active):hover,
+body.admin-neotech .nav-vertical .nav.nav-tabs .nav-item .nav-link:not(.active):focus:not(:focus-visible) {
+  color: var(--neo-muted) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  border-color: transparent !important;
+  border-left: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+/* Active / open: same look when hovered (no “second” state) */
+body.admin-neotech .nav.nav-tabs .nav-item .nav-link.active:hover,
+body.admin-neotech .nav.nav-tabs .nav-item .nav-link.active:focus:not(:focus-visible),
+body.admin-neotech .nav.nav-tabs .nav-item.show .nav-link:hover,
+body.admin-neotech .nav.nav-tabs .nav-item.show .nav-link:focus:not(:focus-visible),
+body.admin-neotech .nav.nav-tabs.nav-justified .nav-item a.nav-link.active:hover,
+body.admin-neotech .nav.nav-tabs.nav-justified .nav-item a.nav-link.active:focus:not(:focus-visible),
+body.admin-neotech .nav-tabs .nav-link.active:hover,
+body.admin-neotech .nav-tabs .nav-link.active:focus:not(:focus-visible),
+body.admin-neotech .nav-tabs .nav-item.show .nav-link:hover,
+body.admin-neotech .nav-tabs .nav-item.show .nav-link:focus:not(:focus-visible) {
+  color: var(--neo-accent-hover) !important;
+  border-bottom-color: var(--neo-accent) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+body.admin-neotech .nav.nav-tabs .nav-item .nav-link.active,
+body.admin-neotech .nav.nav-tabs .nav-item.show .nav-link,
+body.admin-neotech .nav-tabs .nav-link.active,
+body.admin-neotech .nav-tabs .nav-item.show .nav-link {
+  color: var(--neo-accent-hover) !important;
+  border-bottom-color: var(--neo-accent) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+body.admin-neotech .nav.nav-tabs .nav-item .nav-link:focus-visible,
+body.admin-neotech .nav-tabs .nav-link:focus-visible {
+  outline: 2px solid var(--neo-accent-soft);
+  outline-offset: 2px;
+}
+
+/* ----- Dashboard hero ----- */
+body.admin-neotech .neo-dash-hero {
+  align-items: stretch;
+}
+
+body.admin-neotech .neo-dash-hero-inner {
+  background: var(--neo-surface-elevated);
+  border: 1px solid var(--neo-border);
+  border-radius: var(--neo-radius);
+  padding: 1.75rem 1.75rem;
+  height: 100%;
+  box-shadow: var(--neo-card-shadow);
+}
+
+body.admin-neotech .neo-dash-kicker {
+  color: var(--neo-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+}
+
+body.admin-neotech .neo-dash-title {
+  color: var(--neo-text);
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+body.admin-neotech .neo-stat-pill {
+  background: var(--neo-surface-2);
+  border: 1px solid var(--neo-border);
+  border-radius: var(--neo-radius-sm);
+  padding: 0.85rem 1rem;
+  height: 100%;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+body.admin-neotech .neo-stat-pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--neo-accent);
+}
+
+body.admin-neotech .neo-stat-pill .neo-stat-label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--neo-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.35rem;
+}
+
+body.admin-neotech .neo-stat-pill .neo-stat-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--neo-text);
+  line-height: 1.2;
+}
+
+body.admin-neotech .neo-dash-card-mock {
+  position: relative;
+  height: 100%;
+  min-height: 200px;
+  border-radius: var(--neo-radius);
+  border: 1px solid var(--neo-border);
+  overflow: hidden;
+  box-shadow: var(--neo-card-shadow);
+  background: linear-gradient(
+    145deg,
+    #ede9fe 0%,
+    #ffffff 48%,
+    #f5f3ff 100%
+  );
+}
+
+body.admin-neotech.dark-layout .neo-dash-card-mock {
+  background: linear-gradient(
+    145deg,
+    #2a1f36 0%,
+    var(--neo-surface-elevated) 45%,
+    #161616 100%
+  );
+}
+
+body.admin-neotech .neo-dash-card-mock::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 70% 80%,
+    rgba(71, 85, 105, 0.2) 0%,
+    transparent 55%
+  );
+  pointer-events: none;
+}
+
+body.admin-neotech.dark-layout .neo-dash-card-mock::before {
+  background: radial-gradient(
+    circle at 70% 80%,
+    rgba(148, 163, 184, 0.4) 0%,
+    transparent 55%
+  );
+}
+
+body.admin-neotech .neo-dash-card-mock-inner {
+  position: relative;
+  z-index: 1;
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body.admin-neotech .neo-dash-card-brand {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--neo-text);
+  letter-spacing: 0.06em;
+}
+
+body.admin-neotech .neo-dash-card-chip {
+  align-self: flex-end;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--neo-accent);
+  background: var(--neo-accent-soft);
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+}
+
+body.admin-neotech.dark-layout .neo-dash-card-chip {
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body.admin-neotech .neo-dash-card-number {
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  color: var(--neo-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+body.admin-neotech .neo-muted {
+  color: var(--neo-muted) !important;
+}
+
+body.admin-neotech .neo-dash-quick-title {
+  color: var(--neo-text);
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+body.admin-neotech .admin-neotech-footer .blue-grey.lighten-2 {
+  background: transparent !important;
+}
+
+/* ----- Sidebar light mode: override Vuexy menu-dark nested/submenu (hardcoded navy) ----- */
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark {
+  background: var(--neo-surface) !important;
+  color: var(--neo-muted);
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation {
+  background: var(--neo-surface) !important;
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation .navigation-header,
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation .navigation-header span {
+  color: var(--neo-muted) !important;
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li.open > a,
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li.sidebar-group-active > a {
+  background: var(--neo-surface-2) !important;
+  color: var(--neo-text) !important;
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li > ul.menu-content {
+  background: var(--neo-surface-2) !important;
+  border-radius: var(--neo-radius-sm);
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.35rem !important;
+  padding: 0.35rem 0 !important;
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li ul li {
+  color: var(--neo-muted) !important;
+  background: transparent !important;
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li ul li > a {
+  color: var(--neo-muted) !important;
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li ul li:not(.active) > a:hover {
+  margin: 0.15rem 0.35rem !important;
+  background: var(--neo-accent-soft) !important;
+  color: var(--neo-text) !important;
+  box-shadow: none !important;
+}
+
+/*
+ * Vuexy: .navigation > li .active { background: #090D22 } hits submenu li.active.
+ * Reset all .active wrappers in light mode, then restore submenu row tint (more specific).
+ */
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li .active {
+  background: transparent !important;
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li ul li.active {
+  background: transparent !important;
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li ul li.active > a {
+  color: #fff !important;
+  font-weight: 700;
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li .active .hover > a,
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li ul .active .hover > a {
+  background: transparent !important;
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li ul .open > a,
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation > li ul .sidebar-group-active > a {
+  color: var(--neo-text) !important;
+  background: rgba(15, 23, 42, 0.04) !important;
+}
+
+body.admin-neotech:not(.dark-layout) .main-menu.menu-dark .navigation li a span.menu-sub-title {
+  color: var(--neo-muted) !important;
+}
+
+/*
+ * Vuexy dark-layout.css uses navy (#10163A) and blue-gray (#262C49) with selectors that often
+ * beat generic admin-neotech rules. These overrides match Vuexy specificity + load order.
+ */
+body.admin-neotech.dark-layout .main-menu,
+body.admin-neotech.dark-layout .main-menu-content .navigation-main,
+body.admin-neotech.dark-layout .main-menu-content .navigation-main .nav-item .menu-content,
+body.admin-neotech.dark-layout .main-menu-content .navigation-main .nav-item .menu-content li:not(.active) a,
+body.admin-neotech.dark-layout .main-menu-content .navigation-main .sidebar-group-active a {
+  background-color: var(--neo-surface) !important;
+}
+
+body.admin-neotech.dark-layout .main-menu:not(.expanded) .navigation .sidebar-group-active > a,
+body.admin-neotech.dark-layout .main-menu-content .navigation-main .nav-item.open a {
+  background-color: var(--neo-surface-2) !important;
+}
+
+body.admin-neotech.dark-layout.menu-collapsed .main-menu:not(.expanded) .navigation-main li.active > a {
+  background: var(--neo-surface-2) !important;
+  background-color: var(--neo-surface-2) !important;
+}
+
+body.admin-neotech.dark-layout .card,
+body.admin-neotech.dark-layout .card .card-header,
+body.admin-neotech.dark-layout .card .card-footer {
+  background-color: var(--neo-surface) !important;
+}
+
+body.admin-neotech.dark-layout .card .card-header .heading-elements.visible ul li,
+body.admin-neotech.dark-layout .card .heading-elements.visible .list-inline {
+  background-color: var(--neo-surface) !important;
+}
+
+body.admin-neotech.dark-layout .nav-tabs .nav-item .nav-link,
+body.admin-neotech.dark-layout .nav-tabs.nav-justified .nav-item .nav-link,
+body.admin-neotech.dark-layout .nav-tabs .nav-item .nav-link.active,
+body.admin-neotech.dark-layout .nav-tabs.nav-justified .nav-item .nav-link.active {
+  background-color: transparent !important;
+}
+
+body.admin-neotech.dark-layout .header-navbar .nav-link,
+body.admin-neotech.dark-layout .header-navbar .bookmark-wrapper .nav-link {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+body.admin-neotech.dark-layout .nav-tabs ~ .tab-content .tab-pane,
+body.admin-neotech.dark-layout .nav-tabs.nav-justified ~ .tab-content .tab-pane,
+body.admin-neotech.dark-layout .nav ~ .tab-content .tab-pane,
+body.admin-neotech.dark-layout .nav-vertical .nav.nav-tabs.nav-left ~ .tab-content .tab-pane,
+body.admin-neotech.dark-layout .nav-vertical .nav.nav-tabs.nav-right ~ .tab-content .tab-pane {
+  background-color: transparent !important;
+}
+
+body.admin-neotech.dark-layout input.form-control,
+body.admin-neotech.dark-layout textarea.form-control,
+body.admin-neotech.dark-layout select.form-control,
+body.admin-neotech.dark-layout .custom-select,
+body.admin-neotech.dark-layout .custom-file-label {
+  background-color: var(--neo-surface-2) !important;
+  border: 1px solid var(--neo-border-strong) !important;
+}
+
+body.admin-neotech.dark-layout input.form-control:focus,
+body.admin-neotech.dark-layout textarea.form-control:focus,
+body.admin-neotech.dark-layout select.form-control:focus,
+body.admin-neotech.dark-layout .custom-select:focus,
+body.admin-neotech.dark-layout .custom-file-label:focus {
+  background-color: var(--neo-surface-2) !important;
+  border-color: var(--neo-accent) !important;
+  box-shadow: 0 0 0 0.2rem var(--neo-accent-soft) !important;
+  color: var(--neo-text) !important;
+}
+
+body.admin-neotech.dark-layout input.form-control::placeholder,
+body.admin-neotech.dark-layout textarea.form-control::placeholder,
+body.admin-neotech.dark-layout .custom-file-label::placeholder {
+  color: var(--neo-muted) !important;
+}
+
+body.admin-neotech.dark-layout input.form-control::-webkit-input-placeholder,
+body.admin-neotech.dark-layout textarea.form-control::-webkit-input-placeholder {
+  color: var(--neo-muted) !important;
+}
+
+body.admin-neotech.dark-layout input.form-control::-moz-placeholder,
+body.admin-neotech.dark-layout textarea.form-control::-moz-placeholder {
+  color: var(--neo-muted) !important;
+  opacity: 1;
+}
+
+body.admin-neotech.dark-layout input.form-control:-ms-input-placeholder,
+body.admin-neotech.dark-layout textarea.form-control:-ms-input-placeholder {
+  color: var(--neo-muted) !important;
+}
+
+body.admin-neotech.dark-layout select.form-control option:checked,
+body.admin-neotech.dark-layout .custom-select option:checked {
+  background-color: var(--neo-surface-2) !important;
+}
+
+body.admin-neotech.dark-layout .select2-container .select2-selection,
+body.admin-neotech.dark-layout .select2-container--default .select2-selection--single {
+  background: var(--neo-surface-2) !important;
+  background-color: var(--neo-surface-2) !important;
+  border: 1px solid var(--neo-border-strong) !important;
+}
+
+body.admin-neotech.dark-layout .select2-container.select2-container--focus .select2-selection,
+body.admin-neotech.dark-layout .select2-container--default.select2-container--focus .select2-selection--single {
+  border-color: var(--neo-accent) !important;
+  box-shadow: 0 0 0 0.2rem var(--neo-accent-soft) !important;
+}
+
+body.admin-neotech.dark-layout .select2-container .select2-dropdown {
+  background-color: var(--neo-surface) !important;
+  border: 1px solid var(--neo-border-strong) !important;
+}
+
+body.admin-neotech.dark-layout .select2-container .select2-dropdown .select2-search__field {
+  background-color: var(--neo-surface-2) !important;
+  border: 1px solid var(--neo-border-strong) !important;
+  color: var(--neo-text) !important;
+}
+
+body.admin-neotech.dark-layout .list-group .list-group-item:not([class*='list-group-item-']),
+body.admin-neotech.dark-layout .list-group .list-group-item.list-group-item-action {
+  background-color: var(--neo-surface) !important;
+}
+
+body.admin-neotech.dark-layout .list-group .list-group-item:not([class*='list-group-item-']):hover,
+body.admin-neotech.dark-layout .list-group .list-group-item.list-group-item-action:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+body.admin-neotech.dark-layout .toast:not(.intro-toast),
+body.admin-neotech.dark-layout .toast:not(.intro-toast) .toast-header,
+body.admin-neotech.dark-layout .toast:not(.intro-toast) .toast-body,
+body.admin-neotech.dark-layout .popover .popover-body {
+  background-color: var(--neo-surface-2) !important;
+}
+
+body.admin-neotech.dark-layout .avatar {
+  background-color: var(--neo-surface-2) !important;
+}
+
+body.admin-neotech.dark-layout .chip {
+  background-color: var(--neo-surface-2) !important;
+}
+
+body.admin-neotech.dark-layout .chip .avatar {
+  background-color: var(--neo-bg) !important;
+}
+
+body.admin-neotech.dark-layout .modal-content {
+  background-color: var(--neo-surface) !important;
+}
+
+body.admin-neotech.dark-layout .header-navbar .dropdown-menu {
+  background-color: var(--neo-surface) !important;
+}
+
+/*
+ * Reinforce submenu parent row after Vuexy dark overrides (sidebar-group-active / open use !important).
+ */
+body.admin-neotech.dark-layout .main-menu .navigation.navigation-main > li.nav-item.has-sub.sidebar-group-active > a {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--neo-text) !important;
+  box-shadow: none !important;
+  border-inline-start: 3px solid var(--neo-accent) !important;
+}
+
+/*
+ * Vuexy dark-layout: modal shell #262C49 and form controls #10163A — beat long selectors with admin-neotech + .modal path.
+ */
+body.admin-neotech.dark-layout .modal .modal-content,
+body.admin-neotech.dark-layout .modal .modal-body,
+body.admin-neotech.dark-layout .modal .modal-footer {
+  background-color: var(--neo-surface) !important;
+}
+
+body.admin-neotech.dark-layout .modal .modal-content .form-control,
+body.admin-neotech.dark-layout .modal .modal-body .form-control,
+body.admin-neotech.dark-layout .modal .modal-footer .form-control,
+body.admin-neotech.dark-layout .modal .modal-content textarea.form-control,
+body.admin-neotech.dark-layout .modal .modal-body textarea.form-control,
+body.admin-neotech.dark-layout .modal .modal-footer textarea.form-control,
+body.admin-neotech.dark-layout .modal .modal-content input.form-control,
+body.admin-neotech.dark-layout .modal .modal-body input.form-control,
+body.admin-neotech.dark-layout .modal .modal-footer input.form-control,
+body.admin-neotech.dark-layout .modal .modal-content .picker__input,
+body.admin-neotech.dark-layout .modal .modal-body .picker__input,
+body.admin-neotech.dark-layout .modal .modal-footer .picker__input,
+body.admin-neotech.dark-layout .modal .modal-content .custom-file-label,
+body.admin-neotech.dark-layout .modal .modal-body .custom-file-label,
+body.admin-neotech.dark-layout .modal .modal-footer .custom-file-label {
+  background-color: var(--neo-surface-2) !important;
+  border: 1px solid var(--neo-border-strong) !important;
+  color: var(--neo-text) !important;
+}
+
+body.admin-neotech.dark-layout .modal .modal-content .form-control:not(:focus),
+body.admin-neotech.dark-layout .modal .modal-body .form-control:not(:focus),
+body.admin-neotech.dark-layout .modal .modal-footer .form-control:not(:focus),
+body.admin-neotech.dark-layout .modal .modal-content .custom-file-label:not(:focus),
+body.admin-neotech.dark-layout .modal .modal-body .custom-file-label:not(:focus) {
+  border: 1px solid var(--neo-border-strong) !important;
+}
+
+body.admin-neotech.dark-layout .modal .modal-content .form-control:focus,
+body.admin-neotech.dark-layout .modal .modal-body .form-control:focus,
+body.admin-neotech.dark-layout .modal .modal-footer .form-control:focus {
+  background-color: var(--neo-surface-2) !important;
+  border-color: var(--neo-accent) !important;
+  box-shadow: 0 0 0 0.2rem var(--neo-accent-soft) !important;
+  color: var(--neo-text) !important;
+}
+
+body.admin-neotech.dark-layout .modal .modal-content .custom-select,
+body.admin-neotech.dark-layout .modal .modal-body .custom-select,
+body.admin-neotech.dark-layout .modal .modal-footer .custom-select {
+  background-color: var(--neo-surface-2) !important;
+  border: 1px solid var(--neo-border-strong) !important;
+  color: var(--neo-text) !important;
+}
+
+/* Secondary actions: replace cyan “info” gradient with NeoTech neutrals */
+body.admin-neotech.dark-layout .btn.bg-gradient-info {
+  background-image: linear-gradient(118deg, var(--neo-surface-2), var(--neo-surface-elevated)) !important;
+  color: var(--neo-text) !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+body.admin-neotech.dark-layout .btn.bg-gradient-info:hover {
+  background-image: linear-gradient(118deg, var(--neo-surface-elevated), var(--neo-surface-2)) !important;
+  color: var(--neo-text) !important;
+}
+
+body.admin-neotech:not(.dark-layout) .btn.bg-gradient-info {
+  background-image: linear-gradient(118deg, #f5f7fb, #ffffff) !important;
+  color: var(--neo-text) !important;
+  border: 1px solid var(--neo-border) !important;
+  box-shadow: none !important;
+}
+
+body.admin-neotech:not(.dark-layout) .btn.bg-gradient-info:hover {
+  background-image: linear-gradient(118deg, #ffffff, #f0f2f7) !important;
+}
+
+/* ----- Toastr: same visual as intro landing (intro-toast) ----- */
+body.admin-neotech #toast-container {
+  z-index: 2500;
+}
+
+body.admin-neotech #toast-container > .intro-toast {
+  width: min(520px, calc(100vw - 24px));
+  padding: 18px 20px 18px 64px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+  font-family: 'Tajawal', 'Cairo', 'Segoe UI', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  letter-spacing: 0.1px;
+  opacity: 1;
+  background-image: none !important;
+}
+
+/* Fallback without color-mix (avoids invalid background in older browsers) */
+body.admin-neotech #toast-container > .toast-success.intro-toast {
+  background: linear-gradient(135deg, var(--main), var(--hover)) !important;
+  color: #ffffff !important;
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  body.admin-neotech #toast-container > .toast-success.intro-toast {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--main) 65%, #0f172a),
+      color-mix(in srgb, var(--hover) 55%, #0b1d2f)
+    ) !important;
+  }
+}
+
+body.admin-neotech #toast-container > .toast-success.intro-toast::before {
+  content: '\f00c';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.admin-neotech #toast-container > .toast-error.intro-toast {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, #ea5455 65%, #0f172a),
+    color-mix(in srgb, #c62828 55%, #0b1d2f)
+  ) !important;
+  color: #ffffff !important;
+}
+
+body.admin-neotech #toast-container > .toast-error.intro-toast::before {
+  content: '\f00d';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.admin-neotech #toast-container > .toast-warning.intro-toast {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, #ff9f43 65%, #0f172a),
+    color-mix(in srgb, #e65100 55%, #0b1d2f)
+  ) !important;
+  color: #ffffff !important;
+}
+
+body.admin-neotech #toast-container > .toast-info.intro-toast {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, #00cfe8 65%, #0f172a),
+    color-mix(in srgb, #0097a7 55%, #0b1d2f)
+  ) !important;
+  color: #ffffff !important;
+}
+
+body.admin-neotech #toast-container > .intro-toast .toast-message {
+  text-align: start;
+  margin: 0;
+}
+
+body.admin-neotech #toast-container > .intro-toast .toast-progress {
+  height: 4px;
+  opacity: 1;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.35), var(--main)) !important;
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  body.admin-neotech #toast-container > .intro-toast .toast-progress {
+    background: color-mix(in srgb, var(--main) 60%, #ffffff) !important;
+  }
+}
+
+body.admin-neotech #toast-container > .toast-error.intro-toast .toast-progress,
+body.admin-neotech #toast-container > .toast-warning.intro-toast .toast-progress,
+body.admin-neotech #toast-container > .toast-info.intro-toast .toast-progress {
+  background: rgba(255, 255, 255, 0.35) !important;
+}
+
+body.admin-neotech #toast-container > .intro-toast .toast-close-button {
+  color: #ffffff !important;
+  opacity: 0.85;
+  text-shadow: none;
+}
+
+body.admin-neotech #toast-container > .intro-toast {
+  animation: adminIntroToastIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.admin-neotech #toast-container > .intro-toast.toast-hide {
+  animation: adminIntroToastOut 0.28s ease forwards;
+}
+
+@keyframes adminIntroToastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes adminIntroToastOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+
+html[data-textdirection='rtl'] body.admin-neotech #toast-container > .toast-success.intro-toast::before,
+html[data-textdirection='rtl'] body.admin-neotech #toast-container > .toast-error.intro-toast::before {
+  left: auto;
+  right: 18px;
+}
+
+html[data-textdirection='rtl'] body.admin-neotech #toast-container > .intro-toast {
+  padding: 18px 64px 18px 20px;
+}
+
+/* =============================================================================
+   NeoTech — remap Vuexy primary (#7367F0) to slate accent (this file loads last)
+   ============================================================================= */
+body.admin-neotech .text-primary {
+  color: var(--neo-accent-hover) !important;
+}
+
+body.admin-neotech a.text-primary:hover,
+body.admin-neotech a.text-primary:focus {
+  color: var(--neo-accent) !important;
+}
+
+body.admin-neotech .bg-primary {
+  background-color: var(--neo-accent) !important;
+}
+
+body.admin-neotech .border-primary {
+  border-color: var(--neo-accent) !important;
+}
+
+body.admin-neotech .badge.badge-primary {
+  background: var(--neo-accent) !important;
+  color: #fff !important;
+}
+
+body.admin-neotech .navbar-container .bookmark-input input:focus {
+  border-color: var(--neo-accent) !important;
+}
+
+body.admin-neotech .dropdown-notification .dropdown-menu.dropdown-menu-right::before {
+  background: var(--neo-accent) !important;
+  border-color: var(--neo-accent) !important;
+}
+
+body.admin-neotech .dropdown-notification .dropdown-menu-header {
+  background: linear-gradient(135deg, var(--neo-accent) 0%, var(--neo-accent-end) 100%) !important;
+  color: #fff !important;
+}
+
+body.admin-neotech .floating-label-form-group-with-focus label,
+body.admin-neotech .floating-label-form-group-with-value label {
+  color: var(--neo-accent) !important;
+}
+
+body.admin-neotech .select2-container--classic .select2-selection--single:focus,
+body.admin-neotech .select2-container--default .select2-selection--single:focus,
+body.admin-neotech .select2-container--classic.select2-container--open .select2-selection--single,
+body.admin-neotech .select2-container--default.select2-container--open .select2-selection--single,
+body.admin-neotech .select2-container--classic.select2-container--focus .select2-selection--multiple,
+body.admin-neotech .select2-container--default.select2-container--focus .select2-selection--multiple,
+body.admin-neotech .select2-container--classic .select2-selection--multiple:focus,
+body.admin-neotech .select2-container--default .select2-selection--multiple:focus {
+  border-color: var(--neo-accent) !important;
+  box-shadow: 0 0 0 0.2rem var(--neo-accent-soft) !important;
+}
+
+body.admin-neotech .select2-container--classic .select2-selection--multiple .select2-selection__choice,
+body.admin-neotech .select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: var(--neo-accent) !important;
+  border-color: var(--neo-accent-end) !important;
+}
+
+body.admin-neotech .select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: var(--neo-accent) !important;
+  color: #fff !important;
+}
+
+body.admin-neotech table.dataTable tbody tr.selected {
+  background-color: var(--neo-accent-soft) !important;
+  color: var(--neo-accent-hover) !important;
+  box-shadow: 0 0 1px 0 var(--neo-accent) !important;
+}
+
+body.admin-neotech .pagination-primary .page-item.active .page-link {
+  background: linear-gradient(135deg, var(--neo-accent) 0%, var(--neo-accent-end) 100%) !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 14px var(--neo-accent-glow);
+}
+
+body.admin-neotech .custom-control-primary .custom-control-input:checked ~ .custom-control-label::before,
+body.admin-neotech .custom-control-primary .custom-control-input:active ~ .custom-control-label::before {
+  border-color: var(--neo-accent) !important;
+  background-color: var(--neo-accent) !important;
+}
+
+body.admin-neotech .custom-switch-primary .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: var(--neo-accent) !important;
+  border-color: var(--neo-accent) !important;
+}
+
+body.admin-neotech .bg-gradient-primary {
+  background-image: linear-gradient(
+    118deg,
+    var(--neo-accent) 0%,
+    var(--neo-accent-end) 100%
+  ) !important;
+}
+
+/*
+ * dark-layout.css sets: body.dark-layout .nav .nav-item .nav-link:hover { color: #7367F0 }
+ * That selector hits tab links too — re-kill here at EOF so nothing overrides after stack CSS.
+ */
+body.admin-neotech.dark-layout .nav-tabs .nav-item .nav-link:not(.active):hover,
+body.admin-neotech.dark-layout .nav-tabs .nav-item .nav-link:not(.active):focus:not(:focus-visible),
+body.admin-neotech.dark-layout .nav.nav-tabs .nav-item .nav-link:not(.active):hover,
+body.admin-neotech.dark-layout .nav.nav-tabs .nav-item .nav-link:not(.active):focus:not(:focus-visible),
+body.admin-neotech.dark-layout .nav.nav-tabs.nav-justified .nav-item a.nav-link:not(.active):hover,
+body.admin-neotech.dark-layout .nav.nav-tabs.nav-justified .nav-item a.nav-link:not(.active):focus:not(:focus-visible),
+body.admin-neotech.dark-layout .nav-vertical .nav.nav-tabs .nav-item .nav-link:not(.active):hover,
+body.admin-neotech.dark-layout .nav-vertical .nav.nav-tabs .nav-item .nav-link:not(.active):focus:not(:focus-visible) {
+  color: var(--neo-muted) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+}
+
+body.admin-neotech.dark-layout .nav-tabs .nav-item .nav-link.active:hover,
+body.admin-neotech.dark-layout .nav-tabs .nav-item .nav-link.active:focus:not(:focus-visible),
+body.admin-neotech.dark-layout .nav.nav-tabs .nav-item .nav-link.active:hover,
+body.admin-neotech.dark-layout .nav.nav-tabs .nav-item .nav-link.active:focus:not(:focus-visible),
+body.admin-neotech.dark-layout .nav-tabs .nav-item.show .nav-link:hover,
+body.admin-neotech.dark-layout .nav-tabs .nav-item.show .nav-link:focus:not(:focus-visible),
+body.admin-neotech.dark-layout .nav.nav-tabs .nav-item.show .nav-link:hover,
+body.admin-neotech.dark-layout .nav.nav-tabs .nav-item.show .nav-link:focus:not(:focus-visible) {
+  color: var(--neo-accent-hover) !important;
+  border-bottom-color: var(--neo-accent) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/*
+ * Vuexy components.css uses `li.hover` (JS) for sidebar focus — not :hover — plus submenu ul:hover rules.
+ * Keep visuals identical to the non-hover state; active/open/submenu-active unchanged.
+ */
+body.admin-neotech .main-menu.menu-dark .navigation li.hover > a {
+  padding: 0.65rem 1rem !important;
+  transition: none !important;
+  -webkit-transition: none !important;
+}
+
+body.admin-neotech .main-menu .navigation > li:not(.sidebar-group-active):not(.active).hover > a,
+body.admin-neotech .main-menu .navigation > li.has-sub:not(.sidebar-group-active).hover > a {
+  margin: 0.2rem 0.75rem !important;
+  background: transparent !important;
+  color: var(--neo-muted) !important;
+  box-shadow: none !important;
+}
+
+body.admin-neotech .main-menu .navigation > li.nav-item.active:not(.has-sub).hover > a {
+  margin: 0.2rem 0.35rem !important;
+  background: linear-gradient(
+    135deg,
+    var(--neo-accent) 0%,
+    var(--neo-accent-end) 100%
+  ) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px var(--neo-accent-glow) !important;
+}
+
+body.admin-neotech .main-menu .navigation > li.has-sub.sidebar-group-active.hover > a {
+  margin: 0.2rem 0.75rem !important;
+  background: rgba(15, 23, 42, 0.06) !important;
+  color: var(--neo-text) !important;
+  box-shadow: none !important;
+  border-inline-start: 3px solid var(--neo-accent);
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation > li.has-sub.sidebar-group-active.hover > a {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+body.admin-neotech .main-menu .navigation > li ul.menu-content li:not(.active).hover > a {
+  margin: 0.15rem 0.35rem !important;
+  background: transparent !important;
+  color: var(--neo-muted) !important;
+  box-shadow: none !important;
+}
+
+body.admin-neotech .main-menu.menu-dark .navigation > li ul li:not(.active).hover > a {
+  color: var(--neo-muted) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.admin-neotech .main-menu .navigation > li:not(.sidebar-group-active):not(.active).hover > a > i,
+body.admin-neotech .main-menu .navigation > li.has-sub:not(.sidebar-group-active).hover > a > i {
+  color: var(--neo-muted) !important;
+  background: rgba(71, 85, 105, 0.12) !important;
+  box-shadow: none !important;
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation > li:not(.sidebar-group-active):not(.active).hover > a > i,
+body.admin-neotech.dark-layout .main-menu .navigation > li.has-sub:not(.sidebar-group-active).hover > a > i {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.admin-neotech .main-menu .navigation > li ul.menu-content li:not(.active).hover > a > i {
+  color: var(--neo-muted) !important;
+  background: rgba(71, 85, 105, 0.12) !important;
+  box-shadow: none !important;
+}
+
+body.admin-neotech.dark-layout .main-menu .navigation > li ul.menu-content li:not(.active).hover > a > i {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+

@@ -1,0 +1,145 @@
+/* Login page only — same Toastr look as intro landing (scoped to .login-page-modern) */
+body.login-page-modern #toast-container {
+  z-index: 2500;
+}
+
+body.login-page-modern #toast-container > .intro-toast {
+  width: min(520px, calc(100vw - 24px));
+  padding: 18px 20px 18px 64px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+  font-family: 'Tajawal', 'Cairo', 'Segoe UI', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  letter-spacing: 0.1px;
+  opacity: 1;
+  background-image: none !important;
+}
+
+body.login-page-modern #toast-container > .toast-success.intro-toast {
+  background: linear-gradient(135deg, var(--main), var(--hover)) !important;
+  color: #ffffff !important;
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  body.login-page-modern #toast-container > .toast-success.intro-toast {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--main) 65%, #0f172a),
+      color-mix(in srgb, var(--hover) 55%, #0b1d2f)
+    ) !important;
+  }
+}
+
+body.login-page-modern #toast-container > .toast-success.intro-toast::before {
+  content: '\f00c';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.login-page-modern #toast-container > .toast-error.intro-toast {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, #ea5455 65%, #0f172a),
+    color-mix(in srgb, #c62828 55%, #0b1d2f)
+  ) !important;
+  color: #ffffff !important;
+}
+
+body.login-page-modern #toast-container > .toast-error.intro-toast::before {
+  content: '\f00d';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.login-page-modern #toast-container > .intro-toast .toast-message {
+  text-align: start;
+  margin: 0;
+}
+
+body.login-page-modern #toast-container > .intro-toast .toast-progress {
+  height: 4px;
+  opacity: 1;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.35), var(--main)) !important;
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  body.login-page-modern #toast-container > .intro-toast .toast-progress {
+    background: color-mix(in srgb, var(--main) 60%, #ffffff) !important;
+  }
+}
+
+body.login-page-modern #toast-container > .toast-error.intro-toast .toast-progress {
+  background: rgba(255, 255, 255, 0.35) !important;
+}
+
+body.login-page-modern #toast-container > .intro-toast .toast-close-button {
+  color: #ffffff !important;
+  opacity: 0.85;
+  text-shadow: none;
+}
+
+body.login-page-modern #toast-container > .intro-toast {
+  animation: loginIntroToastIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.login-page-modern #toast-container > .intro-toast.toast-hide {
+  animation: loginIntroToastOut 0.28s ease forwards;
+}
+
+@keyframes loginIntroToastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes loginIntroToastOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+
+html[data-textdirection='rtl'] body.login-page-modern #toast-container > .toast-success.intro-toast::before,
+html[data-textdirection='rtl'] body.login-page-modern #toast-container > .toast-error.intro-toast::before {
+  left: auto;
+  right: 18px;
+}
+
+html[data-textdirection='rtl'] body.login-page-modern #toast-container > .intro-toast {
+  padding: 18px 64px 18px 20px;
+}

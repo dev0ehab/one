@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use App\Traits\ModelTrait;
+use App\Models\BaseModel;
+use Spatie\Translatable\HasTranslations;
+
+class {{capitalName}} extends BaseModel
+{
+    use HasTranslations , ModelTrait;
+
+    const IMAGEPATH = '{{smallPluralName}}';
+
+    protected $fillable = [
+        'image',
+        'name',
+        'description',
+    ];
+
+    public $translatable = [
+        'name',
+        'description',
+    ];
+
+}
+
+

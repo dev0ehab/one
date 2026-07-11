@@ -1,0 +1,782 @@
+{
+    "info": {
+        "_postman_id": "chat0001-0000-0000-0000-000000000001",
+        "name": "One — Chat",
+        "description": "Chat API — Rooms & Messages for Client and Provider.\n\nUses `rooms`, `room_members`, `messages`, and `message_notifications` tables.\n\n**Auth:** Bearer token — use `{{client_token}}` or `{{provider_token}}`.\n\nVariables: `base_url`, `client_token`, `provider_token`.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://one.test",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Client",
+            "description": "Chat endpoints for the Client role",
+            "item": [
+                {
+                    "name": "Start Chat",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Lang",
+                                "value": "ar"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{client_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"provider_id\": 1\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/client/chats/start",
+                            "host": ["{{base_url}}"],
+                            "path": ["api", "client", "chats", "start"]
+                        },
+                        "description": "## Start Chat\n\n**Endpoint:** `POST /api/client/chats/start`\n\nCreates a private room between the authenticated client and the given provider. If a room already exists between them, the existing room is returned.\n\nAutomatically marks all messages as seen and returns the room with its full message history.\n\n### Body\n```json\n{\n  \"provider_id\": 1\n}\n```\n\n### Response shape\nSame as **Show Room** — returns `room` and `messages`.",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Example — success (new room)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    { "key": "Accept", "value": "application/json" },
+                                    { "key": "Content-Type", "value": "application/json" },
+                                    { "key": "Lang", "value": "ar" },
+                                    { "key": "Authorization", "value": "Bearer {{client_token}}" }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"provider_id\": 1\n}",
+                                    "options": { "raw": { "language": "json" } }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/chats/start",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "chats", "start"]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [{ "key": "Content-Type", "value": "application/json" }],
+                            "body": "{\n    \"key\": \"success\",\n    \"msg\": \"العملية تمت بنجاح\",\n    \"data\": {\n        \"room\": {\n            \"id\": 3,\n            \"type\": \"direct\",\n            \"other_member\": {\n                \"id\": 1,\n                \"type\": \"provider\",\n                \"name\": \"عيادة النور\",\n                \"image\": \"http://one.test/storage/images/providers/default.png\"\n            },\n            \"unread_count\": 0,\n            \"members\": [\n                {\n                    \"id\": 2,\n                    \"type\": \"Client\",\n                    \"name\": \"أحمد محمد\",\n                    \"image\": null\n                },\n                {\n                    \"id\": 1,\n                    \"type\": \"Provider\",\n                    \"name\": \"عيادة النور\",\n                    \"image\": \"http://one.test/storage/images/providers/default.png\"\n                }\n            ]\n        },\n        \"messages\": {\n            \"data\": [],\n            \"pagination\": {\n                \"current_page\": 1,\n                \"per_page\": 100,\n                \"total\": 0,\n                \"last_page\": 1\n            }\n        }\n    }\n}"
+                        },
+                        {
+                            "name": "Example — success (existing room returned)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    { "key": "Accept", "value": "application/json" },
+                                    { "key": "Content-Type", "value": "application/json" },
+                                    { "key": "Authorization", "value": "Bearer {{client_token}}" }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"provider_id\": 1\n}",
+                                    "options": { "raw": { "language": "json" } }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/chats/start",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "chats", "start"]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [{ "key": "Content-Type", "value": "application/json" }],
+                            "body": "{\n    \"key\": \"success\",\n    \"msg\": \"العملية تمت بنجاح\",\n    \"data\": {\n        \"room\": {\n            \"id\": 1,\n            \"type\": \"direct\",\n            \"other_member\": {\n                \"id\": 1,\n                \"type\": \"provider\",\n                \"name\": \"عيادة النور\",\n                \"image\": \"http://one.test/storage/images/providers/default.png\"\n            },\n            \"unread_count\": 0,\n            \"members\": [\n                {\n                    \"id\": 2,\n                    \"type\": \"Client\",\n                    \"name\": \"أحمد محمد\",\n                    \"image\": null\n                },\n                {\n                    \"id\": 1,\n                    \"type\": \"Provider\",\n                    \"name\": \"عيادة النور\",\n                    \"image\": \"http://one.test/storage/images/providers/default.png\"\n                }\n            ]\n        },\n        \"messages\": {\n            \"data\": [\n                {\n                    \"id\": 10,\n                    \"message_id\": 5,\n                    \"body\": \"شكراً لتواصلكم.\",\n                    \"type\": \"text\",\n                    \"duration\": null,\n                    \"is_sender\": false,\n                    \"is_seen\": true,\n                    \"sender\": {\n                        \"id\": 1,\n                        \"type\": \"provider\",\n                        \"name\": \"عيادة النور\",\n                        \"image\": \"http://one.test/storage/images/providers/default.png\"\n                    },\n                    \"created_at\": \"2026-06-30 14:22\"\n                }\n            ],\n            \"pagination\": {\n                \"current_page\": 1,\n                \"per_page\": 100,\n                \"total\": 1,\n                \"last_page\": 1\n            }\n        }\n    }\n}"
+                        },
+                        {
+                            "name": "Example — 422 missing provider_id",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    { "key": "Accept", "value": "application/json" },
+                                    { "key": "Content-Type", "value": "application/json" },
+                                    { "key": "Authorization", "value": "Bearer {{client_token}}" }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{}",
+                                    "options": { "raw": { "language": "json" } }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/chats/start",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "chats", "start"]
+                                }
+                            },
+                            "status": "Unprocessable Entity",
+                            "code": 422,
+                            "_postman_previewlanguage": "json",
+                            "header": [{ "key": "Content-Type", "value": "application/json" }],
+                            "body": "{\n    \"key\": \"error\",\n    \"msg\": \"حقل معرّف مقدم الخدمة مطلوب.\",\n    \"errors\": {\n        \"provider_id\": [\"حقل معرّف مقدم الخدمة مطلوب.\"]\n    }\n}"
+                        },
+                        {
+                            "name": "Example — 404 provider not found",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    { "key": "Accept", "value": "application/json" },
+                                    { "key": "Content-Type", "value": "application/json" },
+                                    { "key": "Authorization", "value": "Bearer {{client_token}}" }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"provider_id\": 9999\n}",
+                                    "options": { "raw": { "language": "json" } }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/chats/start",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "chats", "start"]
+                                }
+                            },
+                            "status": "Unprocessable Entity",
+                            "code": 422,
+                            "_postman_previewlanguage": "json",
+                            "header": [{ "key": "Content-Type", "value": "application/json" }],
+                            "body": "{\n    \"key\": \"error\",\n    \"msg\": \"القيمة المختارة لحقل معرّف مقدم الخدمة غير صحيحة.\",\n    \"errors\": {\n        \"provider_id\": [\"القيمة المختارة لحقل معرّف مقدم الخدمة غير صحيحة.\"]\n    }\n}"
+                        }
+                    ],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "pm.test('Response has room and messages', function () {",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.expect(data).to.have.property('room');",
+                                    "    pm.expect(data).to.have.property('messages');",
+                                    "});",
+                                    "pm.test('Room type is direct', function () {",
+                                    "    pm.expect(pm.response.json().data.room.type).to.eql('direct');",
+                                    "});",
+                                    "pm.test('Room has members array', function () {",
+                                    "    pm.expect(pm.response.json().data.room.members).to.be.an('array');",
+                                    "});",
+                                    "// save room id for subsequent requests",
+                                    "const roomId = pm.response.json().data?.room?.id;",
+                                    "if (roomId) pm.collectionVariables.set('chat_room_id', roomId);"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "List Rooms",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Lang",
+                                "value": "ar"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{client_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/client/chats",
+                            "host": ["{{base_url}}"],
+                            "path": ["api", "client", "chats"],
+                            "query": [
+                                {
+                                    "key": "paginate",
+                                    "value": "15",
+                                    "description": "Items per page (default 15)",
+                                    "disabled": true
+                                }
+                            ]
+                        },
+                        "description": "## List Rooms\n\n**Endpoint:** `GET /api/client/chats`\n\nReturns all chat rooms the authenticated client is a member of that have at least one message, ordered by most recent message.\n\nEach room includes:\n- `other_member` — the other participant (provider or admin)\n- `unread_count` — number of unseen messages for this client\n- `last_message` — preview of the latest message\n\n### Response shape\n```json\n{\n  \"key\": \"success\",\n  \"msg\": \"...\",\n  \"data\": {\n    \"data\": [ { room } ],\n    \"pagination\": { ... }\n  }\n}\n```",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Example — success",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    { "key": "Accept", "value": "application/json" },
+                                    { "key": "Lang", "value": "ar" },
+                                    { "key": "Authorization", "value": "Bearer {{client_token}}" }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/chats",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "chats"]
+                                },
+                                "body": null
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [{ "key": "Content-Type", "value": "application/json" }],
+                            "body": "{\n    \"key\": \"success\",\n    \"msg\": \"العملية تمت بنجاح\",\n    \"data\": {\n        \"data\": [\n            {\n                \"id\": 1,\n                \"type\": \"booking\",\n                \"other_member\": {\n                    \"id\": 1,\n                    \"type\": \"provider\",\n                    \"name\": \"عيادة النور\",\n                    \"image\": \"http://one.test/storage/images/providers/default.png\"\n                },\n                \"unread_count\": 2,\n                \"last_message\": {\n                    \"id\": 5,\n                    \"body\": \"شكراً لتواصلكم، سيتم الرد في أقرب وقت.\",\n                    \"type\": \"text\",\n                    \"created_at\": \"2026-06-30 14:22\"\n                },\n                \"updated_at\": \"2026-06-30 14:22\"\n            }\n        ],\n        \"pagination\": {\n            \"current_page\": 1,\n            \"per_page\": 15,\n            \"total\": 1,\n            \"last_page\": 1\n        }\n    }\n}"
+                        },
+                        {
+                            "name": "Example — empty (no rooms with messages)",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    { "key": "Accept", "value": "application/json" },
+                                    { "key": "Authorization", "value": "Bearer {{client_token}}" }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/chats",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "chats"]
+                                },
+                                "body": null
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [{ "key": "Content-Type", "value": "application/json" }],
+                            "body": "{\n    \"key\": \"success\",\n    \"msg\": \"العملية تمت بنجاح\",\n    \"data\": {\n        \"data\": [],\n        \"pagination\": {\n            \"current_page\": 1,\n            \"per_page\": 15,\n            \"total\": 0,\n            \"last_page\": 1\n        }\n    }\n}"
+                        }
+                    ],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "pm.test('Response is JSON API envelope', function () {",
+                                    "    const json = pm.response.json();",
+                                    "    pm.expect(json).to.have.property('key');",
+                                    "    pm.expect(json).to.have.property('msg');",
+                                    "});",
+                                    "pm.test('data.data is an array', function () {",
+                                    "    const json = pm.response.json();",
+                                    "    pm.expect(json.data.data).to.be.an('array');",
+                                    "});",
+                                    "pm.test('Room shape is valid when rooms exist', function () {",
+                                    "    const rooms = pm.response.json().data.data;",
+                                    "    if (rooms.length === 0) return;",
+                                    "    const r = rooms[0];",
+                                    "    pm.expect(r).to.have.property('id');",
+                                    "    pm.expect(r).to.have.property('unread_count');",
+                                    "    pm.expect(r).to.have.property('last_message');",
+                                    "    pm.expect(r).to.have.property('other_member');",
+                                    "    // save first room id for the Show Room request",
+                                    "    pm.collectionVariables.set('chat_room_id', r.id);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Show Room",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Lang",
+                                "value": "ar"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{client_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/client/chats/{{chat_room_id}}",
+                            "host": ["{{base_url}}"],
+                            "path": ["api", "client", "chats", "{{chat_room_id}}"],
+                            "query": [
+                                {
+                                    "key": "paginate",
+                                    "value": "20",
+                                    "description": "Messages per page (default 100)",
+                                    "disabled": true
+                                }
+                            ]
+                        },
+                        "description": "## Show Room\n\n**Endpoint:** `GET /api/client/chats/{id}`\n\nReturns the room info and its paginated messages for the authenticated client.\n\n- Marks all unseen messages in this room as **seen** automatically.\n- `messages.data` is ordered newest-first.\n- `is_sender: true` means the current client sent that message.\n\n### Response shape\n```json\n{\n  \"key\": \"success\",\n  \"msg\": \"...\",\n  \"data\": {\n    \"room\": { ... },\n    \"messages\": {\n      \"data\": [ { message } ],\n      \"pagination\": { ... }\n    }\n  }\n}\n```",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Example — success",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    { "key": "Accept", "value": "application/json" },
+                                    { "key": "Lang", "value": "ar" },
+                                    { "key": "Authorization", "value": "Bearer {{client_token}}" }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/chats/1",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "chats", "1"]
+                                },
+                                "body": null
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [{ "key": "Content-Type", "value": "application/json" }],
+                            "body": "{\n    \"key\": \"success\",\n    \"msg\": \"العملية تمت بنجاح\",\n    \"data\": {\n        \"room\": {\n            \"id\": 1,\n            \"type\": \"booking\",\n            \"other_member\": {\n                \"id\": 1,\n                \"type\": \"provider\",\n                \"name\": \"عيادة النور\",\n                \"image\": \"http://one.test/storage/images/providers/default.png\"\n            },\n            \"unread_count\": 0,\n            \"members\": [\n                {\n                    \"id\": 1,\n                    \"type\": \"Client\",\n                    \"name\": \"أحمد محمد\",\n                    \"image\": null\n                },\n                {\n                    \"id\": 1,\n                    \"type\": \"Provider\",\n                    \"name\": \"عيادة النور\",\n                    \"image\": \"http://one.test/storage/images/providers/default.png\"\n                }\n            ]\n        },\n        \"messages\": {\n            \"data\": [\n                {\n                    \"id\": 10,\n                    \"message_id\": 5,\n                    \"body\": \"شكراً لتواصلكم، سيتم الرد في أقرب وقت.\",\n                    \"type\": \"text\",\n                    \"duration\": null,\n                    \"is_sender\": false,\n                    \"is_seen\": true,\n                    \"sender\": {\n                        \"id\": 1,\n                        \"type\": \"provider\",\n                        \"name\": \"عيادة النور\",\n                        \"image\": \"http://one.test/storage/images/providers/default.png\"\n                    },\n                    \"created_at\": \"2026-06-30 14:22\"\n                },\n                {\n                    \"id\": 9,\n                    \"message_id\": 4,\n                    \"body\": \"مرحباً، أود الاستفسار عن موعدي.\",\n                    \"type\": \"text\",\n                    \"duration\": null,\n                    \"is_sender\": true,\n                    \"is_seen\": true,\n                    \"sender\": {\n                        \"id\": 2,\n                        \"type\": \"client\",\n                        \"name\": \"أحمد محمد\",\n                        \"image\": null\n                    },\n                    \"created_at\": \"2026-06-30 14:18\"\n                }\n            ],\n            \"pagination\": {\n                \"current_page\": 1,\n                \"per_page\": 100,\n                \"total\": 2,\n                \"last_page\": 1\n            }\n        }\n    }\n}"
+                        },
+                        {
+                            "name": "Example — 404 not a member",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    { "key": "Accept", "value": "application/json" },
+                                    { "key": "Authorization", "value": "Bearer {{client_token}}" }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/chats/999",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "chats", "999"]
+                                },
+                                "body": null
+                            },
+                            "status": "Not Found",
+                            "code": 404,
+                            "_postman_previewlanguage": "json",
+                            "header": [{ "key": "Content-Type", "value": "application/json" }],
+                            "body": "{\n    \"key\": \"error\",\n    \"msg\": \"غرفة الدردشة غير موجودة\"\n}"
+                        }
+                    ],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "pm.test('Response has room and messages', function () {",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.expect(data).to.have.property('room');",
+                                    "    pm.expect(data).to.have.property('messages');",
+                                    "});",
+                                    "pm.test('Room has required fields', function () {",
+                                    "    const room = pm.response.json().data.room;",
+                                    "    pm.expect(room).to.have.property('id');",
+                                    "    pm.expect(room).to.have.property('unread_count');",
+                                    "    pm.expect(room.unread_count).to.eql(0);",
+                                    "    pm.expect(room).to.have.property('members');",
+                                    "    pm.expect(room.members).to.be.an('array');",
+                                    "});",
+                                    "pm.test('Messages data is an array', function () {",
+                                    "    const msgs = pm.response.json().data.messages.data;",
+                                    "    pm.expect(msgs).to.be.an('array');",
+                                    "});",
+                                    "pm.test('Message shape is valid when messages exist', function () {",
+                                    "    const msgs = pm.response.json().data.messages.data;",
+                                    "    if (msgs.length === 0) return;",
+                                    "    const m = msgs[0];",
+                                    "    pm.expect(m).to.have.property('id');",
+                                    "    pm.expect(m).to.have.property('body');",
+                                    "    pm.expect(m).to.have.property('type');",
+                                    "    pm.expect(m).to.have.property('is_sender');",
+                                    "    pm.expect(m).to.have.property('is_seen');",
+                                    "    pm.expect(m).to.have.property('sender');",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Provider",
+            "description": "Chat endpoints for the Provider role",
+            "item": [
+                {
+                    "name": "Start Chat",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Lang",
+                                "value": "ar"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{provider_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"client_id\": 1\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/provider/chats/start",
+                            "host": ["{{base_url}}"],
+                            "path": ["api", "provider", "chats", "start"]
+                        },
+                        "description": "## Start Chat\n\n**Endpoint:** `POST /api/provider/chats/start`\n\nCreates a private room between the authenticated provider and the given client. If a room already exists between them, the existing room is returned.\n\nReturns the room with its full message history.\n\n### Body\n```json\n{\n  \"client_id\": 1\n}\n```\n\n### Response shape\nSame as **Show Room** — returns `room` and `messages`.",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{provider_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Example — success (new room)",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    { "key": "Accept", "value": "application/json" },
+                                    { "key": "Content-Type", "value": "application/json" },
+                                    { "key": "Lang", "value": "ar" },
+                                    { "key": "Authorization", "value": "Bearer {{provider_token}}" }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"client_id\": 1\n}",
+                                    "options": { "raw": { "language": "json" } }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/api/provider/chats/start",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "provider", "chats", "start"]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [{ "key": "Content-Type", "value": "application/json" }],
+                            "body": "{\n    \"key\": \"success\",\n    \"msg\": \"العملية تمت بنجاح\",\n    \"data\": {\n        \"room\": {\n            \"id\": 3,\n            \"type\": \"direct\",\n            \"other_member\": {\n                \"id\": 1,\n                \"type\": \"client\",\n                \"name\": \"أحمد محمد\",\n                \"image\": null\n            },\n            \"unread_count\": 0,\n            \"members\": [\n                {\n                    \"id\": 1,\n                    \"type\": \"Provider\",\n                    \"name\": \"عيادة النور\",\n                    \"image\": \"http://one.test/storage/images/providers/default.png\"\n                },\n                {\n                    \"id\": 1,\n                    \"type\": \"Client\",\n                    \"name\": \"أحمد محمد\",\n                    \"image\": null\n                }\n            ]\n        },\n        \"messages\": {\n            \"data\": [],\n            \"pagination\": {\n                \"current_page\": 1,\n                \"per_page\": 100,\n                \"total\": 0,\n                \"last_page\": 1\n            }\n        }\n    }\n}"
+                        }
+                    ],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "pm.test('Response has room and messages', function () {",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.expect(data).to.have.property('room');",
+                                    "    pm.expect(data).to.have.property('messages');",
+                                    "});",
+                                    "pm.test('Room type is direct', function () {",
+                                    "    pm.expect(pm.response.json().data.room.type).to.eql('direct');",
+                                    "});",
+                                    "const roomId = pm.response.json().data?.room?.id;",
+                                    "if (roomId) pm.collectionVariables.set('provider_chat_room_id', roomId);"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "List Rooms",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Lang",
+                                "value": "ar"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{provider_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/provider/chats",
+                            "host": ["{{base_url}}"],
+                            "path": ["api", "provider", "chats"],
+                            "query": [
+                                {
+                                    "key": "paginate",
+                                    "value": "15",
+                                    "description": "Items per page (default 15)",
+                                    "disabled": true
+                                }
+                            ]
+                        },
+                        "description": "## List Rooms\n\n**Endpoint:** `GET /api/provider/chats`\n\nReturns all chat rooms the authenticated provider is a member of that have at least one message, ordered by most recent message.\n\nEach room includes:\n- `other_member` — the other participant (client)\n- `unread_count` — number of unseen messages for this provider\n- `last_message` — preview of the latest message",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{provider_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Example — success",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    { "key": "Accept", "value": "application/json" },
+                                    { "key": "Lang", "value": "ar" },
+                                    { "key": "Authorization", "value": "Bearer {{provider_token}}" }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/provider/chats",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "provider", "chats"]
+                                },
+                                "body": null
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [{ "key": "Content-Type", "value": "application/json" }],
+                            "body": "{\n    \"key\": \"success\",\n    \"msg\": \"العملية تمت بنجاح\",\n    \"data\": {\n        \"data\": [\n            {\n                \"id\": 1,\n                \"type\": \"booking\",\n                \"other_member\": {\n                    \"id\": 2,\n                    \"type\": \"client\",\n                    \"name\": \"أحمد محمد\",\n                    \"image\": null\n                },\n                \"unread_count\": 1,\n                \"last_message\": {\n                    \"id\": 4,\n                    \"body\": \"مرحباً، أود الاستفسار عن موعدي.\",\n                    \"type\": \"text\",\n                    \"created_at\": \"2026-06-30 14:18\"\n                },\n                \"updated_at\": \"2026-06-30 14:18\"\n            }\n        ],\n        \"pagination\": {\n            \"current_page\": 1,\n            \"per_page\": 15,\n            \"total\": 1,\n            \"last_page\": 1\n        }\n    }\n}"
+                        }
+                    ],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "pm.test('Response is JSON API envelope', function () {",
+                                    "    const json = pm.response.json();",
+                                    "    pm.expect(json).to.have.property('key');",
+                                    "    pm.expect(json).to.have.property('msg');",
+                                    "});",
+                                    "pm.test('data.data is an array', function () {",
+                                    "    pm.expect(pm.response.json().data.data).to.be.an('array');",
+                                    "});",
+                                    "pm.test('Room shape is valid when rooms exist', function () {",
+                                    "    const rooms = pm.response.json().data.data;",
+                                    "    if (rooms.length === 0) return;",
+                                    "    const r = rooms[0];",
+                                    "    pm.expect(r).to.have.property('id');",
+                                    "    pm.expect(r).to.have.property('unread_count');",
+                                    "    pm.expect(r).to.have.property('last_message');",
+                                    "    pm.expect(r).to.have.property('other_member');",
+                                    "    pm.collectionVariables.set('provider_chat_room_id', r.id);",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Show Room",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Lang",
+                                "value": "ar"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{provider_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/provider/chats/{{provider_chat_room_id}}",
+                            "host": ["{{base_url}}"],
+                            "path": ["api", "provider", "chats", "{{provider_chat_room_id}}"],
+                            "query": [
+                                {
+                                    "key": "paginate",
+                                    "value": "20",
+                                    "description": "Messages per page (default 100)",
+                                    "disabled": true
+                                }
+                            ]
+                        },
+                        "description": "## Show Room\n\n**Endpoint:** `GET /api/provider/chats/{id}`\n\nReturns the room info and its paginated messages for the authenticated provider.\n\n- Marks all unseen messages in this room as **seen** automatically.\n- `messages.data` is ordered newest-first.\n- `is_sender: true` means the current provider sent that message.",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{provider_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Example — success",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    { "key": "Accept", "value": "application/json" },
+                                    { "key": "Lang", "value": "ar" },
+                                    { "key": "Authorization", "value": "Bearer {{provider_token}}" }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/provider/chats/1",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "provider", "chats", "1"]
+                                },
+                                "body": null
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [{ "key": "Content-Type", "value": "application/json" }],
+                            "body": "{\n    \"key\": \"success\",\n    \"msg\": \"العملية تمت بنجاح\",\n    \"data\": {\n        \"room\": {\n            \"id\": 1,\n            \"type\": \"booking\",\n            \"other_member\": {\n                \"id\": 2,\n                \"type\": \"client\",\n                \"name\": \"أحمد محمد\",\n                \"image\": null\n            },\n            \"unread_count\": 0,\n            \"members\": [\n                {\n                    \"id\": 2,\n                    \"type\": \"Client\",\n                    \"name\": \"أحمد محمد\",\n                    \"image\": null\n                },\n                {\n                    \"id\": 1,\n                    \"type\": \"Provider\",\n                    \"name\": \"عيادة النور\",\n                    \"image\": \"http://one.test/storage/images/providers/default.png\"\n                }\n            ]\n        },\n        \"messages\": {\n            \"data\": [\n                {\n                    \"id\": 10,\n                    \"message_id\": 5,\n                    \"body\": \"شكراً لتواصلكم، سيتم الرد في أقرب وقت.\",\n                    \"type\": \"text\",\n                    \"duration\": null,\n                    \"is_sender\": true,\n                    \"is_seen\": true,\n                    \"sender\": {\n                        \"id\": 1,\n                        \"type\": \"provider\",\n                        \"name\": \"عيادة النور\",\n                        \"image\": \"http://one.test/storage/images/providers/default.png\"\n                    },\n                    \"created_at\": \"2026-06-30 14:22\"\n                },\n                {\n                    \"id\": 9,\n                    \"message_id\": 4,\n                    \"body\": \"مرحباً، أود الاستفسار عن موعدي.\",\n                    \"type\": \"text\",\n                    \"duration\": null,\n                    \"is_sender\": false,\n                    \"is_seen\": true,\n                    \"sender\": {\n                        \"id\": 2,\n                        \"type\": \"client\",\n                        \"name\": \"أحمد محمد\",\n                        \"image\": null\n                    },\n                    \"created_at\": \"2026-06-30 14:18\"\n                }\n            ],\n            \"pagination\": {\n                \"current_page\": 1,\n                \"per_page\": 100,\n                \"total\": 2,\n                \"last_page\": 1\n            }\n        }\n    }\n}"
+                        },
+                        {
+                            "name": "Example — 404 not a member",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    { "key": "Accept", "value": "application/json" },
+                                    { "key": "Authorization", "value": "Bearer {{provider_token}}" }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/provider/chats/999",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "provider", "chats", "999"]
+                                },
+                                "body": null
+                            },
+                            "status": "Not Found",
+                            "code": 404,
+                            "_postman_previewlanguage": "json",
+                            "header": [{ "key": "Content-Type", "value": "application/json" }],
+                            "body": "{\n    \"key\": \"error\",\n    \"msg\": \"غرفة الدردشة غير موجودة\"\n}"
+                        }
+                    ],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "pm.test('Response has room and messages', function () {",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.expect(data).to.have.property('room');",
+                                    "    pm.expect(data).to.have.property('messages');",
+                                    "});",
+                                    "pm.test('Room has required fields', function () {",
+                                    "    const room = pm.response.json().data.room;",
+                                    "    pm.expect(room).to.have.property('id');",
+                                    "    pm.expect(room).to.have.property('unread_count');",
+                                    "    pm.expect(room.unread_count).to.eql(0);",
+                                    "    pm.expect(room).to.have.property('members');",
+                                    "    pm.expect(room.members).to.be.an('array');",
+                                    "});",
+                                    "pm.test('Messages data is an array', function () {",
+                                    "    pm.expect(pm.response.json().data.messages.data).to.be.an('array');",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,262 @@
+/* ── Merchant marketplace login — animated icon background ── */
+
+.login-merchant-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, color-mix(in srgb, var(--main, #475569) 12%, transparent), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 85% 90%, color-mix(in srgb, var(--hover, #334155) 10%, transparent), transparent 50%),
+    linear-gradient(160deg, #f1f5f9 0%, #e8eef5 40%, #f8fafc 100%);
+}
+
+.login-merchant-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2394a3b8' fill-opacity='0.06'%3E%3Cpath d='M0 40h40V0H0v40zm2-2h36V2H2v36z'/%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.6;
+}
+
+.login-merchant-icon {
+  position: absolute;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  font-size: var(--size, 1.75rem);
+  color: color-mix(in srgb, var(--main, #475569) var(--opacity, 18%), #94a3b8);
+  opacity: 0.55;
+  transform: translate(-50%, -50%) rotate(var(--rotate, 0deg));
+  animation: login-merchant-float var(--duration, 24s) var(--delay, 0s) ease-in-out infinite;
+  filter: drop-shadow(0 2px 8px rgba(15, 23, 42, 0.06));
+  will-change: transform;
+}
+
+@keyframes login-merchant-float {
+  0%, 100% {
+    transform: translate(-50%, -50%) rotate(var(--rotate, 0deg)) translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(-50%, -50%) rotate(calc(var(--rotate, 0deg) + 8deg)) translate(12px, -28px) scale(1.05);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(calc(var(--rotate, 0deg) - 5deg)) translate(-18px, -52px) scale(0.95);
+  }
+  75% {
+    transform: translate(-50%, -50%) rotate(calc(var(--rotate, 0deg) + 4deg)) translate(8px, -36px) scale(1.02);
+  }
+}
+
+@keyframes login-merchant-drift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Shell sits above background */
+.login-page-premium .login-premium-shell {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* Brand panel — glass overlay on animated side */
+.login-page-premium .login-premium-brand {
+  background: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--login-brand-start, #0f172a) 92%, transparent) 0%,
+    color-mix(in srgb, var(--login-brand-end, #1e293b) 88%, transparent) 45%,
+    color-mix(in srgb, var(--main, #475569) 35%, var(--login-brand-start, #0f172a)) 100%
+  );
+  backdrop-filter: blur(2px);
+}
+
+.login-page-premium .login-premium-brand::before {
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  animation: login-merchant-drift 40s ease infinite;
+  background-size: 200% 200%;
+}
+
+.login-page-premium .login-premium-brand-content {
+  animation: login-card-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.login-page-premium .login-premium-brand .auth-logo {
+  animation: login-logo-glow 4s ease-in-out infinite;
+}
+
+@keyframes login-logo-glow {
+  0%, 100% { filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.3)); }
+  50% { filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.08)); }
+}
+
+/* Form panel — transparent so icons show through softly */
+.login-page-premium .login-premium-form-panel {
+  background: transparent;
+  position: relative;
+}
+
+/* Elegant glass card */
+.login-page-premium .login-premium-card {
+  position: relative;
+  max-width: 440px;
+  padding: 2.5rem 2.25rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 8px 32px rgba(15, 23, 42, 0.08),
+    0 24px 48px rgba(15, 23, 42, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  animation: login-card-enter 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.login-page-premium .login-premium-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(90deg, transparent, var(--main, #475569), transparent);
+  opacity: 0.5;
+}
+
+@keyframes login-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-page-premium .login-premium-card h1 {
+  font-size: 1.625rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.03em;
+}
+
+.login-page-premium .login-premium-subtitle {
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.login-page-premium .login-premium-card .form-control {
+  border-radius: 10px;
+  background: rgba(248, 250, 252, 0.9);
+  border: 1px solid #e2e8f0;
+  padding: 0.7rem 0.9rem 0.7rem 2.85rem;
+  font-size: 0.9375rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.login-page-premium .login-premium-card .form-control:hover {
+  border-color: #cbd5e1;
+  background: #fff;
+}
+
+.login-page-premium .login-premium-card .form-control:focus {
+  background: #fff;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--main, #475569) 12%, transparent);
+}
+
+.login-page-premium .login-premium-field-icon {
+  top: 2.42rem;
+  color: color-mix(in srgb, var(--main, #475569) 70%, #94a3b8);
+  transition: color 0.2s ease;
+}
+
+.login-page-premium .login-premium-field:focus-within .login-premium-field-icon {
+  color: var(--main, #475569);
+}
+
+.login-page-premium .login-premium-submit {
+  border-radius: 10px;
+  padding: 0.8rem;
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-page-premium .login-premium-submit::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.15) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.login-page-premium .login-premium-submit:hover:not(:disabled)::after {
+  transform: translateX(100%);
+}
+
+.login-page-premium .login-premium-remember input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--main, #475569);
+  cursor: pointer;
+}
+
+/* Brand-side icons (inside dark panel only) */
+.login-premium-brand .login-merchant-bg--brand {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: none;
+}
+
+.login-premium-brand .login-merchant-bg--brand::after {
+  display: none;
+}
+
+.login-merchant-bg--brand .login-merchant-icon {
+  color: rgba(255, 255, 255, 0.14);
+  opacity: 1;
+  filter: none;
+  animation-name: login-merchant-float-brand;
+}
+
+@keyframes login-merchant-float-brand {
+  0%, 100% {
+    transform: translate(-50%, -50%) rotate(var(--rotate, 0deg)) translate(0, 0);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(calc(var(--rotate, 0deg) + 10deg)) translate(10px, -20px);
+  }
+}
+
+.login-premium-brand .login-premium-brand-content {
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-merchant-icon,
+  .login-page-premium .login-premium-brand::before,
+  .login-page-premium .login-premium-brand .auth-logo,
+  .login-page-premium .login-premium-card,
+  .login-page-premium .login-premium-brand-content {
+    animation: none !important;
+  }
+
+  .login-merchant-bg--brand .login-merchant-icon {
+    animation: none !important;
+  }
+}

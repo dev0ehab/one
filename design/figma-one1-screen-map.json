@@ -1,0 +1,333 @@
+{
+  "figma": {
+    "fileKey": "ifLgxTuiF3pXJowbS9aNk7",
+    "fileName": "One1",
+    "url": "https://www.figma.com/design/ifLgxTuiF3pXJowbS9aNk7/One1"
+  },
+  "note": "Figma node-id in URLs uses hyphens; API tools use colons (e.g. node-id=0-1 → 0:1).",
+  "pages": {
+    "client": {
+      "nodeId": "0:1",
+      "name": "User Interface ( for client )",
+      "url": "https://www.figma.com/design/ifLgxTuiF3pXJowbS9aNk7/One1?node-id=0-1"
+    },
+    "provider": {
+      "nodeId": "1:2",
+      "name": "User Intertface ( for provider )",
+      "url": "https://www.figma.com/design/ifLgxTuiF3pXJowbS9aNk7/One1?node-id=1-2"
+    }
+  },
+  "client": {
+    "sections": [
+      {
+        "nodeId": "3:91",
+        "name": "Splash",
+        "screens": ["4:92 splash", "5:174 splash2"],
+        "api": { "status": "partial", "endpoints": ["GET /api/client/app-intro", "GET /api/settings"] }
+      },
+      {
+        "nodeId": "5:323",
+        "name": "on boarding",
+        "screens": ["13:653 on boarding2", "5:324 on boarding"],
+        "api": { "status": "partial", "endpoints": ["GET /api/client/app-intro"] }
+      },
+      {
+        "nodeId": "18:709",
+        "name": "registration & login",
+        "screens": [
+          "18:818 login",
+          "25:1249 register",
+          "18:923 forget password",
+          "25:972 OTP",
+          "25:1057 reset a new password",
+          "25:1121 confirm reset a new password",
+          "1161:4928 terms (الشروط والأحكام)"
+        ],
+        "api": {
+          "status": "implemented",
+          "endpoints": [
+            "POST /api/client/register",
+            "PUT /api/client/activate",
+            "POST /api/client/resend-code",
+            "POST /api/client/login",
+            "POST /api/client/password/forget",
+            "POST /api/client/password/check-code",
+            "POST /api/client/password/reset",
+            "GET /api/client/terms"
+          ],
+          "registerFields": ["name", "phone", "country_code", "password", "password_confirmation", "accept_terms"]
+        }
+      },
+      {
+        "nodeId": "25:1312",
+        "name": "home",
+        "screens": [
+          "51:888 Service presenter (مقدمي الخدمات list)",
+          "51:1668 filter",
+          "45:620 localization on map",
+          "462:1620 providers on map",
+          "498:1681 view details providers on map",
+          "51:1963 Service presenter profile",
+          "1577:3539 Service presenter profile"
+        ],
+        "api": {
+          "status": "implemented",
+          "endpoints": [
+            "GET /api/client/providers",
+            "GET /api/client/providers/map",
+            "GET /api/client/providers/{id}",
+            "GET /api/client/providers/{id}/reviews",
+            "GET /api/client/providers/{id}/ads",
+            "GET /api/client/providers/categories",
+            "GET /api/client/favorites",
+            "POST /api/client/favorites/toggle"
+          ],
+          "queryParams": {
+            "search": "name or location",
+            "category_id": "activity tab",
+            "activity_type_id": "alias for category_id",
+            "has_booking_service": "0|1",
+            "min_rate": "minimum avg_rate",
+            "sort": "nearest|highest_rate|lowest_rate",
+            "lat": "for nearest/map",
+            "lng": "for nearest/map",
+            "radius": "km default 20"
+          },
+          "listCardFields": ["trade_name", "image", "avg_rate", "today_work_hours", "location", "distance_km", "is_favorite", "has_booking_service"],
+          "profileDetailFields": ["trade_name", "owner_name", "image", "banners", "avg_rate", "total_rates", "work_days", "contact", "location", "category", "has_booking_service", "booking_notes"],
+          "removedNotInDesign": [
+            "POST /api/client/verify-login",
+            "POST /api/provider/verify-login",
+            "GET /api/client/providers/categories-with-home-care",
+            "GET /api/client/main-categories"
+          ]
+        }
+      },
+      {
+        "nodeId": "1619:3482",
+        "name": "حجوزاتي",
+        "screens": [
+          "1421:10214 list with tabs (tabber)",
+          "1422:11534 list states",
+          "1422:13363 booking detail",
+          "1421:10319 booking flow variants"
+        ],
+        "api": {
+          "status": "implemented",
+          "endpoints": [
+            "GET /api/client/bookings?tab=current|past|cancelled|pending_payment",
+            "GET /api/client/providers/{id}/booking-slots",
+            "POST /api/client/bookings",
+            "POST /api/client/bookings/dismiss-empty-banner",
+            "GET /api/client/bookings/{id}",
+            "POST /api/client/bookings/{id}/cancel",
+            "POST /api/client/bookings/{id}/additional-invoice/accept",
+            "POST /api/client/bookings/{id}/additional-invoice/reject",
+            "GET /api/provider/bookings",
+            "POST /api/provider/bookings/{id}/accept",
+            "POST /api/provider/bookings/{id}/reject"
+          ],
+          "createBookingFields": ["ad_id", "date", "time", "notes"],
+          "bookingCardFields": [
+            "provider_name",
+            "provider_phone",
+            "address",
+            "scheduled_at",
+            "service_title",
+            "service_description",
+            "price",
+            "images",
+            "status"
+          ],
+          "tabs": ["current", "past", "cancelled", "pending_payment"],
+          "emptyStateCopy": "احجز حجوزاتك بسهولة بدون انتظار"
+        }
+      },
+      {
+        "nodeId": "1421:11186",
+        "name": "Notification",
+        "screens": ["1421:11187 empty", "1421:11232 list", "1421:11260 delete one", "1421:11266 delete all"],
+        "api": {
+          "status": "implemented",
+          "endpoints": [
+            "GET /api/client/notifications",
+            "GET /api/client/count-notifications",
+            "DELETE /api/client/delete-notification/{id}",
+            "DELETE /api/client/delete-notifications",
+            "PATCH /api/client/switch-notify"
+          ],
+          "cardFields": ["id", "type", "title", "body", "created_at"],
+          "createdAtFormat": "d/m/Y - g:iمساء|صباحاً (ar) — Figma 1421:11232",
+          "emptyStateCopy": "لا يوجد إشعارات حاليا",
+          "deleteOneMsg": "site.notify_deleted",
+          "deleteAllMsg": "site.notifys_deleted"
+        }
+      },
+      {
+        "nodeId": "277:585",
+        "name": "more",
+        "screens": ["277:2294 more menu and sub-screens"],
+        "api": {
+          "status": "implemented",
+          "figmaNodes": {
+            "profileView": "291:692",
+            "editProfile": "291:2671",
+            "settings": "291:2549",
+            "deleteAccount": "291:3237"
+          },
+          "endpoints": [
+            "GET /api/client/profile",
+            "POST /api/client/update/profile",
+            "PATCH /api/client/update-password",
+            "POST /api/client/send-code-to-old-phone",
+            "POST /api/client/verify-old-phone",
+            "POST /api/client/send-code-to-new-phone",
+            "POST /api/client/verify-new-phone",
+            "DELETE /api/client/delete-account"
+          ],
+          "profileFields": ["name", "phone", "country_code", "image"],
+          "editProfileFields": ["name", "image"],
+          "note": "Client has no email — phone is the identifier",
+          "deleteAccountFields": ["reason"],
+          "otpDigits": 6,
+          "missing": ["loyalty points", "chat"]
+        }
+      },
+      {
+        "nodeId": "client-inquiries",
+        "name": "استفسارات (client)",
+        "note": "Flow referenced in onboarding/home — no separate PNG export",
+        "api": {
+          "status": "implemented",
+          "endpoints": [
+            "GET /api/client/inquiries?tab=pending|accepted|rejected|cancelled",
+            "POST /api/client/inquiries",
+            "GET /api/client/inquiries/{id}",
+            "POST /api/client/inquiries/{id}/cancel"
+          ],
+          "storeFields": ["category_id", "title", "description", "target_type", "lat", "lng", "address", "images"],
+          "targetTypes": ["nearest", "all"]
+        }
+      }
+    ]
+  },
+  "provider": {
+    "sections": [
+      {
+        "nodeId": "1098:2059",
+        "name": "Splash",
+        "welcomeCopy": "سجل معنا وسهل التواصل بينك وبين العميل",
+        "api": { "status": "partial", "endpoints": ["GET /api/settings"] }
+      },
+      {
+        "nodeId": "1102:2130",
+        "name": "on boarding",
+        "api": { "status": "implemented", "endpoints": ["GET /api/provider/app-intro"] }
+      },
+      {
+        "nodeId": "1102:2241",
+        "name": "registration & login",
+        "screens": ["1102:2242 login", "1102:2258 register"],
+        "api": {
+          "status": "implemented",
+          "endpoints": [
+            "POST /api/provider/register",
+            "PUT /api/provider/activate",
+            "POST /api/provider/resend-code",
+            "POST /api/provider/login",
+            "POST /api/provider/password/forget",
+            "POST /api/provider/password/check-code",
+            "POST /api/provider/password/reset",
+            "GET /api/provider/terms"
+          ],
+          "registerFields": ["owner_name", "trade_name", "phone", "country_code", "password", "password_confirmation", "national_id", "category_id", "commercial_register_num", "lat", "lng", "map_desc", "start_time", "end_time", "banners", "accept_terms"],
+          "loginFields": ["phone", "country_code", "password", "device_type", "device_id", "mac_address"]
+        }
+      },
+      {
+        "nodeId": "1121:575",
+        "name": "home",
+        "screens": ["1127:1532 home dashboard"],
+        "api": {
+          "status": "implemented",
+          "designExport": "design/provider/home.png",
+          "endpoints": ["GET /api/provider/home", "GET /api/provider/profile"],
+          "homeWidgets": ["admin_messages_count", "bookings_count", "inquiries_count", "ads_count", "messages_count"]
+        }
+      },
+      {
+        "nodeId": "1169:8858",
+        "name": "استفسارات",
+        "api": {
+          "status": "implemented",
+          "endpoints": [
+            "GET /api/provider/inquiries",
+            "GET /api/provider/inquiries/{id}",
+            "POST /api/provider/inquiries/{id}/accept",
+            "POST /api/provider/inquiries/{id}/reject"
+          ]
+        }
+      },
+      {
+        "nodeId": "1169:9943",
+        "name": "الاعلانات",
+        "screens": ["1169:10286 اعلاناتي", "BookingServiceScreen variants"],
+        "api": {
+          "status": "implemented",
+          "note": "Figma section name اعلانات — API uses bookings",
+          "endpoints": [
+            "GET /api/provider/bookings",
+            "POST /api/provider/bookings/{id}/accept",
+            "POST /api/provider/bookings/{id}/reject",
+            "POST /api/provider/bookings/{id}/complete",
+            "POST /api/provider/bookings/{id}/additional-invoice"
+          ]
+        }
+      },
+      {
+        "nodeId": "1169:7521",
+        "name": "Notification",
+        "api": {
+          "status": "implemented",
+          "endpoints": [
+            "GET /api/provider/notifications",
+            "GET /api/provider/count-notifications",
+            "DELETE /api/provider/delete-notification/{id}",
+            "DELETE /api/provider/delete-notifications",
+            "PATCH /api/provider/switch-notify"
+          ],
+          "cardFields": ["id", "type", "title", "body", "created_at"],
+          "sampleTitle": "حجز جديد مستلم",
+          "notificationType": "booking_new_received"
+        }
+      },
+      {
+        "nodeId": "1169:13259",
+        "name": "المزيد",
+        "api": {
+          "status": "partial",
+          "endpoints": [
+            "GET /api/provider/profile",
+            "POST /api/provider/update/profile"
+          ],
+          "missing": ["entity update request UI flow"],
+          "removedNotInDesign": [
+            "PATCH /api/provider/booking-service",
+            "GET /api/provider/work-days",
+            "PUT /api/provider/work-days/update-work-days",
+            "GET /api/provider/sub-categories"
+          ]
+        }
+      }
+    ]
+  },
+  "implementationPriority": [
+    "bookings (client + provider)",
+    "map providers",
+    "provider filters",
+    "inquiries",
+    "additional invoice + payment states",
+    "chat",
+    "ratings"
+  ]
+}

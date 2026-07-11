@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Services\Entity;
+
+use App\Models\{{capitalName}};
+
+class {{capitalName}}Service extends BaseService
+{
+    /**
+     * Initializes the {{capitalName}}Service class.
+     *
+     * @param {{capitalName}} ${{smallName}} The {{capitalName}} model instance.
+     */
+    public function __construct({{capitalName}} ${{smallName}})
+    {
+        $this->model = ${{smallName}};
+    }
+}

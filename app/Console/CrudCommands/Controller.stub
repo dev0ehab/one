@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Traits\ReportTrait;
+use App\Services\Entity\{{capitalName}}Service;
+
+class {{capitalName}}Controller extends BaseController
+{
+    use ReportTrait;
+
+    public function __construct({{capitalName}}Service $service)
+    {
+        parent::__construct($service);
+    }
+}

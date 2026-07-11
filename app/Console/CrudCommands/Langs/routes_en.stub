@@ -1,0 +1,10 @@
+    '{{smallPluralName}}' => [
+        'index'         => '{{capitalPluralName}}',
+        'create_page'   => '{{capitalPluralName}} Create Page',
+        'create'        => 'Create {{capitalName}}',
+        'edit_page'     => '{{capitalName}} Edit Page',
+        'edit'          => 'Edit {{capitalName}}',
+        'show'          => '{{capitalName}} Show',
+        'delete'        => 'Delete {{capitalName}}',
+        'delete_all'    => 'Delete All {{capitalPluralName}}',
+    ],

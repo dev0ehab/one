@@ -1,0 +1,34 @@
+{
+  "collectionId": "54926212-e39f2c1c-6eea-4f44-8d11-d928212207ff",
+  "collectionUuid": "e39f2c1c-6eea-4f44-8d11-d928212207ff",
+  "collectionName": "One",
+  "variables": {
+    "base_url": "http://one.test",
+    "client_token": "",
+    "provider_token": ""
+  },
+  "localExport": "postman/One.postman_collection.json",
+  "workflow": [
+    "Implement task",
+    "Update Postman (full body) BEFORE asking user for approval",
+    "Git commit",
+    "Ask user: هل تمام؟ then next task"
+  ],
+  "cloudSync": {
+    "afterLocalEdit": "Run: php scripts/sync-postman-ids.php (cloud export) postman/One.postman_collection.json postman/One.postman_collection.synced.json then putCollection via Postman MCP (collectionId above). Local JSON alone does not update the Postman app.",
+    "scripts": ["scripts/sync-postman-ids.php", "scripts/push-postman-collection.php"]
+  },
+  "conventions": {
+    "alwaysIncludeBody": true,
+    "updateBeforeAsk": true,
+    "preferPutCollection": "Use Postman Collection v2.1 PUT (not legacy createCollectionRequest) so Body renders in the app. MUST sync to cloud after editing postman/One.postman_collection.json.",
+    "jsonRequests": "body.mode raw + body.raw JSON + Content-Type application/json",
+    "multipartRequests": "body.mode formdata + body.formdata[] with type text|file and sample values",
+    "headers": ["Accept: application/json", "lang: ar", "Authorization: Bearer {{client_token}} when auth required"]
+  },
+  "folders": {
+    "client": "Client",
+    "provider": "Provider",
+    "global": "Global"
+  }
+}

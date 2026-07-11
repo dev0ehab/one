@@ -1,0 +1,25 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
+
+class {{capitalName}}TableSeeder extends Seeder
+{
+    public function run()
+    {
+        $faker = Faker::create('ar_SA');
+        ${{smallPluralName}} = [];
+
+        for ($i = 0; $i < 10; $i++) {
+            ${{smallPluralName}}[] = [
+                'name' => 'name' . $i,
+                'description' => 'description' . $i,
+            ];
+        }
+
+        DB::table('{{smallPluralName}}')->insert(${{smallPluralName}});
+    }
+}

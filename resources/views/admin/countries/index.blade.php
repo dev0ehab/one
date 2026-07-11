@@ -1,0 +1,55 @@
+@extends('admin.layout.master')
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/app-assets/vendors/css/extensions/sweetalert2.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/index_page.css')}}">
+@endsection
+
+@section('content')
+<div class="content-body">
+    
+    <div class="neo-index-toolbar mb-2">
+
+        <x-admin.buttons 
+            addbutton="{{ route('admin.countries.create') }}"
+        />
+        
+        <x-admin.filter 
+            datefilter="true" 
+            order="true" 
+            :searchArray="[
+                'name' => [
+                    'input_type' => 'text' , 
+                    'input_name' => __('admin.country_name') , 
+                ] ,
+                'code' => [
+                    'input_type' => 'text' , 
+                    'input_name' => __('admin.country_code') , 
+                ] ,
+            ]"
+        />
+
+    </div>
+
+    <div class="table_content_append">
+
+    </div>
+@endsection
+
+@section('js')
+
+    <script src="{{asset('admin/app-assets/vendors/js/extensions/sweetalert2.all.min.js')}}"></script>
+    <script src="{{asset('admin/app-assets/js/scripts/extensions/sweet-alerts.js')}}"></script>
+
+    {{-- delete all script --}}
+        @include('admin.shared.deleteAll')
+    {{-- delete all script --}}
+
+    {{-- delete one user script --}}
+        @include('admin.shared.deleteOne')
+    {{-- delete one user script --}}
+
+    {{-- delete one user script --}}
+        @include('admin.shared.filter_js' , [ 'index_route' => url('admin/countries')])
+    {{-- delete one user script --}}
+@endsection

@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>السايكل الكامل للحجز — One Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --client: #1d4ed8;
+  --client-bg: #eff6ff;
+  --provider: #15803d;
+  --provider-bg: #ecfdf5;
+  --guest: #57534e;
+  --guest-bg: #f5f5f4;
+  --system: #c2410c;
+  --system-bg: #fff7ed;
+  --warn: #b45309;
+  --warn-bg: #fffbeb;
+  --danger: #b91c1c;
+  --danger-bg: #fef2f2;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --code-bg: #0f172a;
+  --code-ink: #e2e8f0;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Tajawal', system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.7; }
+body { padding: 0 24px 80px; max-width: 1180px; margin: 0 auto; }
+
+header.page {
+  text-align: center;
+  padding: 56px 16px 32px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 40px;
+}
+header.page h1 { font-size: 38px; margin: 0 0 12px; font-weight: 800; }
+header.page .subtitle { color: var(--muted); font-size: 18px; max-width: 720px; margin: 0 auto; }
+header.page .meta { margin-top: 18px; font-size: 14px; color: var(--muted); }
+header.page .meta code { font-family: 'JetBrains Mono', monospace; background: #fff; border: 1px solid var(--line); padding: 2px 8px; border-radius: 6px; }
+
+nav.toc {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 48px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+nav.toc h2 { margin: 0 0 16px; font-size: 18px; }
+nav.toc ol { margin: 0; padding-right: 24px; columns: 2; column-gap: 32px; }
+nav.toc li { margin: 6px 0; break-inside: avoid; }
+nav.toc a { color: var(--ink); text-decoration: none; }
+nav.toc a:hover { color: var(--client); text-decoration: underline; }
+
+section { margin-bottom: 56px; scroll-margin-top: 24px; }
+section h2 {
+  font-size: 28px;
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+section h2 .num {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  background: var(--ink);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+section h3 { font-size: 20px; margin: 28px 0 12px; }
+section h4 { font-size: 16px; margin: 18px 0 8px; color: var(--muted); }
+
+p { margin: 8px 0; }
+ul, ol { padding-right: 22px; }
+
+code, kbd { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; direction: ltr; display: inline-block; }
+pre.code { background: var(--code-bg); color: var(--code-ink); padding: 16px 20px; border-radius: 10px; overflow-x: auto; direction: ltr; }
+pre.code code { background: transparent; color: inherit; padding: 0; }
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.3px;
+}
+.b-client   { background: var(--client-bg);   color: var(--client); }
+.b-provider { background: var(--provider-bg); color: var(--provider); }
+.b-guest    { background: var(--guest-bg);    color: var(--guest); }
+.b-system   { background: var(--system-bg);   color: var(--system); }
+.b-warn     { background: var(--warn-bg);     color: var(--warn); }
+.b-danger   { background: var(--danger-bg);   color: var(--danger); }
+
+.method {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+.m-get    { background: #dbeafe; color: #1e40af; }
+.m-post   { background: #dcfce7; color: #166534; }
+.m-put    { background: #fef3c7; color: #92400e; }
+.m-patch  { background: #fce7f3; color: #9d174d; }
+.m-delete { background: #fee2e2; color: #b91c1c; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 16px 0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.card.client   { border-right: 4px solid var(--client); }
+.card.provider { border-right: 4px solid var(--provider); }
+.card.guest    { border-right: 4px solid var(--guest); }
+.card.system   { border-right: 4px solid var(--system); }
+
+.card .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--line);
+}
+.card .head .title { font-weight: 700; font-size: 16px; }
+.card .ep {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  direction: ltr;
+  background: #f8fafc;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+.card dl { margin: 0; display: grid; grid-template-columns: 160px 1fr; gap: 6px 16px; }
+.card dt { color: var(--muted); font-size: 13px; }
+.card dd { margin: 0; font-size: 14px; }
+.card .ref { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
+
+table.endpoints {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 13px;
+}
+table.endpoints th,
+table.endpoints td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  text-align: right;
+}
+table.endpoints th { background: #f8fafc; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+table.endpoints td.path { font-family: 'JetBrains Mono', monospace; direction: ltr; text-align: left; font-size: 12px; }
+table.endpoints tr:last-child td { border-bottom: 0; }
+table.endpoints tr:hover { background: #fafbfc; }
+
+.callout {
+  border-right: 4px solid var(--warn);
+  background: var(--warn-bg);
+  padding: 12px 18px;
+  border-radius: 8px;
+  margin: 14px 0;
+  font-size: 14px;
+}
+.callout.danger { border-color: var(--danger); background: var(--danger-bg); }
+.callout.info   { border-color: var(--client); background: var(--client-bg); }
+.callout strong { display: block; margin-bottom: 4px; }
+
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+.glossary-grid .gl-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.glossary-grid h4 { margin: 0 0 8px; }
+.glossary-grid table { width: 100%; font-size: 13px; }
+.glossary-grid table td { padding: 4px 6px; }
+.glossary-grid table td:first-child { color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+.mermaid {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  margin: 16px 0;
+  overflow-x: auto;
+}
+
+.actor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 16px 0;
+}
+.actor-grid .actor {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+}
+.actor-grid .actor.client   { border-right: 4px solid var(--client); }
+.actor-grid .actor.provider { border-right: 4px solid var(--provider); }
+.actor-grid h4 { margin: 0 0 8px; font-size: 18px; }
+.actor-grid ul { margin: 8px 0 0; padding-right: 22px; }
+.actor-grid li { margin: 4px 0; font-size: 14px; }
+
+footer.page {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media (max-width: 760px) {
+  nav.toc ol { columns: 1; }
+  .actor-grid { grid-template-columns: 1fr; }
+  .card dl { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="page">
+  <h1>السايكل الكامل للحجز</h1>
+  <div class="subtitle">من تسجيل الدخول لغاية إنهاء الحجز وتقييم مقدم الخدمة — مع كل الفروع وكل endpoint وكل gate يمر بها الطلب.</div>
+  <div class="meta">
+    Base URL: <code>https://your-domain.com/api/</code> · Laravel Sanctum auth · <code>Content-Type: application/json</code>
+  </div>
+</header>
+
+<nav class="toc">
+  <h2>المحتويات</h2>
+  <ol>
+    <li><a href="#glossary">1. تعريفات سريعة</a></li>
+    <li><a href="#actors">2. الفاعلون</a></li>
+    <li><a href="#login">3. تسجيل الدخول</a></li>
+    <li><a href="#browse">4. تصفّح مزودي الخدمة</a></li>
+    <li><a href="#state-machine">5. مخطط حالات الحجز</a></li>
+    <li><a href="#happy-path">6. السايكل الكامل (Happy Path)</a></li>
+    <li><a href="#walkthrough">7. كل خطوة بالتفصيل</a></li>
+    <li><a href="#branches">8. المسارات الفرعية</a></li>
+    <li><a href="#endpoints">9. خريطة الـ Endpoints الكاملة</a></li>
+    <li><a href="#notes">10. ملاحظات تقنية</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="glossary">
+  <h2><span class="num">1</span> تعريفات سريعة</h2>
+  <p>كل الحالات والأنواع المستخدمة في النظام مع قيمها النصية بالضبط (الـ enum constants).</p>
+
+  <div class="glossary-grid">
+    <div class="gl-card">
+      <h4>BookingStatusEnum <span class="badge b-system">5 قيم</span></h4>
+      <table>
+        <tr><td>new</td><td><strong>NEW</strong> — حجز جديد بانتظار القبول</td></tr>
+        <tr><td>pending_payment</td><td><strong>PENDING_PAYMENT</strong> — مقبول، قيد الدفع</td></tr>
+        <tr><td>in_progress</td><td><strong>IN_PROGRESS</strong> — مدفوع، قيد التنفيذ</td></tr>
+        <tr><td>completed</td><td><strong>COMPLETED</strong> — منتهي بنجاح</td></tr>
+        <tr><td>cancelled</td><td><strong>CANCELLED</strong> — ملغي (من العميل أو مرفوض من المزود)</td></tr>
+      </table>
+    </div>
+
+    <div class="gl-card">
+      <h4>AdditionalInvoiceStatusEnum <span class="badge b-warn">5 قيم</span></h4>
+      <table>
+        <tr><td>pending</td><td><strong>PENDING</strong> — فاتورة إضافية بانتظار رد العميل</td></tr>
+        <tr><td>accepted</td><td><strong>ACCEPTED</strong> — قبلها العميل، بانتظار الدفع</td></tr>
+        <tr><td>rejected</td><td><strong>REJECTED</strong> — رفضها العميل</td></tr>
+        <tr><td>paid</td><td><strong>PAID</strong> — تم دفعها</td></tr>
+        <tr><td>payment_overdue</td><td><strong>PAYMENT_OVERDUE</strong> — انتهت مهلة الدفع</td></tr>
+      </table>
+    </div>
+
+    <div class="gl-card">
+      <h4>PaymentMethod <span class="badge b-client">طريقة الدفع</span></h4>
+      <table>
+        <tr><td>wallet</td><td><strong>WALLET</strong> — خصم مباشر من رصيد محفظة العميل</td></tr>
+        <tr><td>online</td><td><strong>ONLINE</strong> — بوابة دفع خارجية (Myfatoorah، Hyperpay، Stripe...) — يعيد <code>redirect_url</code></td></tr>
+      </table>
+      <p style="font-size:12px; color: var(--muted); margin-top:8px;">الحقل <code>payment_method</code> مطلوب في <code>POST …/pay</code> و<code>POST …/additional-invoice/pay</code>.</p>
+    </div>
+
+    <div class="gl-card">
+      <h4>InquiryStatusEnum <span class="badge b-provider">4 قيم</span></h4>
+      <table>
+        <tr><td>pending</td><td><strong>PENDING</strong> — استفسار بانتظار رد</td></tr>
+        <tr><td>accepted</td><td><strong>ACCEPTED</strong> — قبله مزود</td></tr>
+        <tr><td>rejected</td><td><strong>REJECTED</strong> — رفض جميع المزودين</td></tr>
+        <tr><td>cancelled</td><td><strong>CANCELLED</strong> — ألغاه العميل</td></tr>
+      </table>
+    </div>
+
+    <div class="gl-card">
+      <h4>BookingStatusEnum — التبويبات</h4>
+      <table>
+        <tr><td><code>current</code></td><td>الحالية → [NEW, PENDING_PAYMENT, IN_PROGRESS]</td></tr>
+        <tr><td><code>past</code></td><td>السابقة → [COMPLETED]</td></tr>
+        <tr><td><code>cancelled</code></td><td>الملغاة → [CANCELLED]</td></tr>
+      </table>
+      <p style="font-size:12px; color: var(--muted); margin-top:8px;">يُمرَّر كـ <code>?tab=current|past|cancelled</code> في <code>GET /api/client/bookings</code>.</p>
+    </div>
+
+    <div class="gl-card">
+      <h4>AdStatus — حالة الإعلان</h4>
+      <table>
+        <tr><td>pending</td><td><strong>PENDING</strong> — بانتظار موافقة الأدمن</td></tr>
+        <tr><td>approved</td><td><strong>APPROVED</strong> — معتمد ومرئي للعملاء</td></tr>
+        <tr><td>rejected</td><td><strong>REJECTED</strong> — مرفوض</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="actors">
+  <h2><span class="num">2</span> الفاعلون</h2>
+  <div class="actor-grid">
+    <div class="actor client">
+      <h4><span class="badge b-client">CLIENT</span> العميل</h4>
+      <p>المستخدم النهائي. يتصفح مزودي الخدمة، يحجز، يدفع، يتابع حجوزاته، يقيّم، أو يلغي.</p>
+      <ul>
+        <li>يسجل ويدخل عبر <code>/api/client/*</code></li>
+        <li>حجوزاته تحت <code>client/bookings</code></li>
+        <li>استفساراته تحت <code>client/inquiries</code></li>
+        <li>محفظته تحت <code>client/wallet</code></li>
+      </ul>
+    </div>
+
+    <div class="actor provider">
+      <h4><span class="badge b-provider">PROVIDER</span> مقدم الخدمة</h4>
+      <p>صاحب الخدمة. يستقبل الحجوزات، يقبل / يرفض، يصدر فواتير إضافية، وينهي الخدمة.</p>
+      <ul>
+        <li>يسجل ويدخل عبر <code>/api/provider/*</code></li>
+        <li>حجوزاته تحت <code>provider/bookings</code></li>
+        <li>يلزم أن يكون <code>is_approved=1</code> + <code>is_active=true</code> + <code>is_blocked=false</code></li>
+        <li>يجب أن يمتلك اشتراكاً نشطاً في خدمة الحجز (<code>hasActiveBookingService</code>)</li>
+        <li>يدير إعلاناته وجدول عمله وحسابه البنكي</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <strong>Sanctum guard مشترك:</strong>
+    نفس الـ middleware <code>auth:sanctum</code> يخدم العميل والمزود — التمييز عبر <code>check-auth-type:client</code> و<code>check-auth-type:provider</code> التي تتحقق من نوع الـ model المرتبط بالـ token.
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="login">
+  <h2><span class="num">3</span> تسجيل الدخول (Login Flow)</h2>
+  <p>كلا الفاعلين يستخدمان نفس النمط: تسجيل → تفعيل OTP → تسجيل دخول → Sanctum token يُستخدم في الـ Bearer header لكل request لاحق.</p>
+
+  <div class="mermaid">
+sequenceDiagram
+  autonumber
+  actor U as Client أو Provider
+  participant API
+  participant SMS as SMS Gateway
+  U->>API: POST register { name, phone, password, ... }
+  API->>SMS: OTP activation code
+  SMS-->>U: كود التفعيل
+  U->>API: PUT activate { phone, code }
+  API-->>U: success
+  U->>API: POST login { phone, password }
+  API-->>U: { token: "Sanctum..." }
+  Note over U,API: يضيف "Authorization: Bearer ..." لكل request بعد كده
+  U->>API: POST logout
+  API-->>U: success
+  </div>
+
+  <div class="card client">
+    <div class="head">
+      <span><span class="badge b-client">CLIENT</span> &nbsp; تسجيل دخول العميل</span>
+      <span class="ep">Prefix: /api/client</span>
+    </div>
+    <table class="endpoints">
+      <thead><tr><th>Method</th><th>Path</th><th>الوصف</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">client/register</td><td>تسجيل عميل جديد — يرسل OTP للتفعيل</td></tr>
+        <tr><td><span class="method m-put">PUT</span></td><td class="path">client/activate</td><td>التحقق من كود OTP وتفعيل الحساب</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">client/resend-code</td><td>إعادة إرسال كود التفعيل</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">client/login</td><td>تسجيل الدخول — يعيد Sanctum token</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">client/profile</td><td>بيانات العميل الحالي</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">client/update/profile</td><td>تحديث البيانات الشخصية + الصورة</td></tr>
+        <tr><td><span class="method m-patch">PATCH</span></td><td class="path">client/change-lang</td><td>تغيير لغة الحساب</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">client/logout</td><td>إنهاء الجلسة (إبطال الـ token)</td></tr>
+        <tr><td><span class="method m-delete">DELETE</span></td><td class="path">client/delete-account</td><td>حذف الحساب نهائياً</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card provider">
+    <div class="head">
+      <span><span class="badge b-provider">PROVIDER</span> &nbsp; تسجيل دخول مقدم الخدمة</span>
+      <span class="ep">Prefix: /api/provider</span>
+    </div>
+    <table class="endpoints">
+      <thead><tr><th>Method</th><th>Path</th><th>الوصف</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">provider/register</td><td>تسجيل مزود جديد مع بيانات العمل والوثائق</td></tr>
+        <tr><td><span class="method m-put">PUT</span></td><td class="path">provider/activate</td><td>تفعيل الحساب عبر OTP</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">provider/resend-code</td><td>إعادة إرسال كود التفعيل</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">provider/login</td><td>تسجيل الدخول — يعيد Sanctum token</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">provider/profile</td><td>بيانات المزود الحالي</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">provider/home</td><td>لوحة التحكم — رسائل إدارة، حجوزات، استفسارات، إعلانات، رسائل</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">provider/update/profile</td><td>تحديث البيانات الشخصية</td></tr>
+        <tr><td><span class="method m-patch">PATCH</span></td><td class="path">provider/change-lang</td><td>تغيير لغة الحساب</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">provider/logout</td><td>إنهاء الجلسة</td></tr>
+        <tr><td><span class="method m-delete">DELETE</span></td><td class="path">provider/delete-account</td><td>حذف الحساب</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card system">
+    <div class="head"><span class="title">استعادة كلمة المرور</span></div>
+    <table class="endpoints">
+      <thead><tr><th>Method</th><th>Path (client أو provider)</th><th>الوصف</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">{prefix}/password/forget</td><td>إرسال OTP لاسترداد كلمة المرور</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">{prefix}/password/check-code</td><td>التحقق من كود OTP</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">{prefix}/password/reset</td><td>تعيين كلمة مرور جديدة</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="browse">
+  <h2><span class="num">4</span> تصفّح مزودي الخدمة (العميل)</h2>
+  <p>هذه الـ endpoints <strong>عامة (optional.auth)</strong> — يمكن الوصول إليها بدون token، لكنها تتعرف على العميل لو أرسل token.</p>
+
+  <div class="card guest">
+    <div class="head"><span><span class="badge b-guest">GUEST/CLIENT</span> &nbsp; الفئات والمزودون</span><span class="ep">GET client/providers/categories</span></div>
+    <dl>
+      <dt>Auth</dt><dd>اختياري</dd>
+      <dt>Response</dt><dd>قائمة الفئات (categories) لاستخدامها في فلتر البحث</dd>
+    </dl>
+  </div>
+
+  <div class="card guest">
+    <div class="head"><span><span class="badge b-guest">GUEST/CLIENT</span> &nbsp; قائمة المزودين</span><span class="ep">GET client/providers</span></div>
+    <dl>
+      <dt>Auth</dt><dd>اختياري</dd>
+      <dt>Query</dt><dd><code>search</code> / <code>category_id</code> / <code>lat</code> / <code>lng</code> / <code>per_page</code></dd>
+      <dt>Response</dt><dd>قائمة بطاقات المزودين (id, name, category, rating, avatar, map_desc, is_open)</dd>
+    </dl>
+  </div>
+
+  <div class="card guest">
+    <div class="head"><span><span class="badge b-guest">GUEST/CLIENT</span> &nbsp; خريطة المزودين</span><span class="ep">GET client/providers/map</span></div>
+    <dl>
+      <dt>Auth</dt><dd>اختياري</dd>
+      <dt>Response</dt><dd>قائمة نقاط الخريطة (id, name, lat, lng) لعرض المزودين على الخريطة</dd>
+    </dl>
+  </div>
+
+  <div class="card guest">
+    <div class="head"><span><span class="badge b-guest">GUEST/CLIENT</span> &nbsp; بروفايل مزود</span><span class="ep">GET client/providers/{id}</span></div>
+    <dl>
+      <dt>Auth</dt><dd>اختياري</dd>
+      <dt>Response</dt><dd>بروفايل كامل: بيانات + category + rating + work_days + is_open + hasActiveBookingService + إعلاناته النشطة</dd>
+    </dl>
+  </div>
+
+  <div class="card guest">
+    <div class="head"><span><span class="badge b-guest">GUEST/CLIENT</span> &nbsp; مواعيد الحجز المتاحة</span><span class="ep">GET client/providers/{id}/booking-slots</span></div>
+    <dl>
+      <dt>Auth</dt><dd>اختياري</dd>
+      <dt>Query</dt><dd><code>?days=7</code> — عدد الأيام المطلوب عرضها (افتراضي: 7)</dd>
+      <dt>Response</dt><dd>مصفوفة بالأيام، كل يوم يحتوي على قائمة فترات الوقت المتاحة والمحجوزة</dd>
+      <dt>الشرط</dt><dd>المزود يجب أن يكون نشطاً ومعتمداً وغير محظور</dd>
+    </dl>
+  </div>
+
+  <div class="card guest">
+    <div class="head"><span><span class="badge b-guest">GUEST/CLIENT</span> &nbsp; تقييمات مزود + إعلاناته</span></div>
+    <dl>
+      <dt>التقييمات</dt><dd><code>GET client/providers/{id}/reviews</code> — كل التقييمات مع تعليق + اسم العميل + النجوم</dd>
+      <dt>الإعلانات</dt><dd><code>GET client/providers/{id}/ads</code> — إعلانات المزود المعتمدة مع السعر + الوصف</dd>
+      <dt>العامة</dt><dd><code>GET client/ads</code> — كل الإعلانات المعتمدة والنشطة للتصفح العام</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="state-machine">
+  <h2><span class="num">5</span> مخطط حالات الحجز (State Machine)</h2>
+  <p>كل سهم يمثل انتقال محمي بـ endpoint محدد. أي محاولة انتقال خارج المسارات أدناه يردّها النظام برسالة <code>booking_invalid_action</code>.</p>
+
+  <div class="mermaid">
+stateDiagram-v2
+  direction LR
+  [*] --> NEW : العميل ينشئ الحجز
+  NEW --> PENDING_PAYMENT : المزود يقبل
+  NEW --> CANCELLED : المزود يرفض أو العميل يلغي
+  PENDING_PAYMENT --> IN_PROGRESS : العميل يدفع (wallet أو online)
+  PENDING_PAYMENT --> CANCELLED : العميل يلغي
+  IN_PROGRESS --> COMPLETED : المزود ينهي (بشرط عدم وجود فاتورة إضافية معلقة)
+  IN_PROGRESS --> IN_PROGRESS : المزود يصدر فاتورة إضافية
+  COMPLETED --> [*] : العميل يقيم اختياري
+  CANCELLED --> [*]
+  </div>
+
+  <div class="callout info">
+    <strong>ملاحظة مهمة حول الفاتورة الإضافية:</strong>
+    لا يمكن للمزود إنهاء الحجز (<code>complete</code>) لو كانت الفاتورة الإضافية في حالة <code>PENDING</code> أو <code>ACCEPTED</code> أو <code>PAYMENT_OVERDUE</code>. لا بد أن تكون <code>PAID</code> أو <code>REJECTED</code> أو غير موجودة (null).
+  </div>
+
+  <h3>مخطط حالات الفاتورة الإضافية</h3>
+  <div class="mermaid">
+stateDiagram-v2
+  direction LR
+  [*] --> PENDING : المزود يصدر فاتورة إضافية
+  PENDING --> ACCEPTED : العميل يقبل (تبدأ مهلة الدفع)
+  PENDING --> REJECTED : العميل يرفض
+  ACCEPTED --> PAID : العميل يدفع في المهلة
+  ACCEPTED --> PAYMENT_OVERDUE : انتهت مهلة الدفع
+  PAYMENT_OVERDUE --> PAID : العميل يدفع بعد انتهاء المهلة
+  REJECTED --> PENDING : المزود يُعيد إصدار فاتورة جديدة
+  PAYMENT_OVERDUE --> PENDING : المزود يُعيد إصدار فاتورة جديدة
+  PAID --> PENDING : المزود يُصدر فاتورة إضافية أخرى
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="happy-path">
+  <h2><span class="num">6</span> السايكل الكامل — Happy Path</h2>
+  <p>الترتيب الزمني الكامل للـ requests من لحظة فتح التطبيق لغاية التقييم النهائي (دفع عبر المحفظة بدون فاتورة إضافية).</p>
+
+  <div class="mermaid">
+sequenceDiagram
+  autonumber
+  actor C as Client
+  participant API
+  actor P as Provider
+  Note over C,API: مرحلة 1 — التصفّح والاختيار
+  C->>API: GET client/providers?category_id=...
+  C->>API: GET client/providers/{id}
+  C->>API: GET client/providers/{id}/booking-slots
+  Note over C,API: مرحلة 2 — إنشاء الحجز
+  C->>API: POST client/bookings { ad_id, date, time, notes }
+  API-->>C: booking { status: new }
+  Note over P,API: مرحلة 3 — المزود يرى الحجز الجديد
+  P->>API: GET provider/bookings
+  P->>API: POST provider/bookings/{id}/accept
+  API-->>C: إشعار push — حجزك تم قبوله
+  Note over C,API: مرحلة 4 — الدفع عبر المحفظة
+  C->>API: POST client/bookings/{id}/pay { payment_method: wallet }
+  API-->>C: booking { status: in_progress }
+  API-->>P: إشعار push — تم الدفع
+  Note over P,API: مرحلة 5 — إنهاء الخدمة
+  P->>API: POST provider/bookings/{id}/complete
+  API-->>C: إشعار push — اكتمل حجزك
+  Note over C,API: مرحلة 6 — التقييم
+  C->>API: POST client/bookings/{id}/rate { rate: 5, comment: ... }
+  API-->>C: booking { rate: { stars: 5 } }
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="walkthrough">
+  <h2><span class="num">7</span> كل خطوة بالتفصيل</h2>
+
+  <!-- Step 1 -->
+  <div class="card client">
+    <div class="head">
+      <span><span class="badge b-client">CLIENT</span> &nbsp; 1. إنشاء الحجز</span>
+      <span class="ep"><span class="method m-post">POST</span> client/bookings</span>
+    </div>
+    <dl>
+      <dt>Body</dt><dd><code>ad_id</code> (required) — معرف الإعلان المراد الحجز منه<br><code>date</code> (required) — تاريخ الحجز بصيغة <code>Y-m-d</code> (اليوم أو بعده)<br><code>time</code> (required) — وقت الحجز بصيغة <code>HH:MM</code><br><code>notes</code> (optional) — ملاحظات max:2000 حرف</dd>
+      <dt>Auth</dt><dd>مطلوب (<code>auth:sanctum + check-auth-type:client</code>)</dd>
+      <dt>الشروط</dt><dd>
+        - الإعلان (<code>ad_id</code>) نشط ومعتمد (<code>status=approved</code>)<br>
+        - المزود المرتبط بالإعلان: <code>is_active=true</code> + <code>is_approved=1</code> + <code>is_blocked=false</code><br>
+        - المزود لديه اشتراك نشط في خدمة الحجز (<code>hasActiveBookingService</code>)<br>
+        - الفترة الزمنية (<code>date + time</code>) متاحة — لم تُحجَز من قبل وضمن ساعات عمل المزود<br>
+        - لو التاريخ هو اليوم، الوقت يجب أن يكون في المستقبل
+      </dd>
+      <dt>الناتج</dt><dd>سجل booking جديد + إشعار للمزود</dd>
+      <dt>الحالة</dt><dd><span class="badge b-system">NEW</span></dd>
+      <dt class="ref">Code</dt><dd class="ref">app/Services/Entity/BookingService.php → store()</dd>
+    </dl>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="card provider">
+    <div class="head">
+      <span><span class="badge b-provider">PROVIDER</span> &nbsp; 2. المزود يرى ويتحقق من الحجز الجديد</span>
+      <span class="ep"><span class="method m-get">GET</span> provider/bookings</span>
+    </div>
+    <dl>
+      <dt>Query</dt><dd><code>?status=new</code> أو فلاتر أخرى حسب الـ BookingFilter</dd>
+      <dt>التفاصيل</dt><dd><code>GET provider/bookings/{id}</code> — تفاصيل الحجز بما فيه: بيانات العميل + الخدمة + الموعد + السعر + الإعلان</dd>
+      <dt>الشرط</dt><dd>المزود مصادق عليه + هذا الحجز يخصه</dd>
+    </dl>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="card provider">
+    <div class="head">
+      <span><span class="badge b-provider">PROVIDER</span> &nbsp; 3. القبول أو الرفض</span>
+      <span class="ep">
+        <span class="method m-post">POST</span> provider/bookings/{id}/accept
+        &nbsp;|&nbsp;
+        <span class="method m-post">POST</span> provider/bookings/{id}/reject
+      </span>
+    </div>
+    <dl>
+      <dt>الشرط</dt><dd>الحالة الحالية = <code>new</code> فقط — وإلا <code>booking_invalid_action</code></dd>
+      <dt>القبول</dt><dd>لا body. الحجز ينتقل إلى <span class="badge b-system">PENDING_PAYMENT</span> + إشعار للعميل (BookingAccepted)</dd>
+      <dt>الرفض</dt><dd>Body: <code>reason</code> (optional string). الحجز ينتقل إلى <span class="badge b-system">CANCELLED</span> + يُحفظ <code>cancel_reason</code> + إشعار للعميل (BookingRejected)</dd>
+    </dl>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="card client">
+    <div class="head">
+      <span><span class="badge b-client">CLIENT</span> &nbsp; 4. الدفع</span>
+      <span class="ep"><span class="method m-post">POST</span> client/bookings/{id}/pay</span>
+    </div>
+    <dl>
+      <dt>Body</dt><dd><code>payment_method</code> ∈ {<code>wallet</code>, <code>online</code>}</dd>
+      <dt>الشرط</dt><dd>الحالة = <code>pending_payment</code> — وإلا <code>booking_payment_not_required</code></dd>
+      <dt>فرع wallet</dt><dd>يُخصم المبلغ مباشرة من رصيد محفظة العميل (<code>WalletService::deduct</code>) → <span class="badge b-system">IN_PROGRESS</span> + <code>paid_at = now()</code> + إشعار للعميل والمزود (BookingPaid). لو الرصيد غير كافٍ → <code>insufficient_balance</code></dd>
+      <dt>فرع online</dt><dd>يُنشئ <code>PaymentTransaction</code> عبر بوابة الدفع النشطة → يعيد <code>redirect_url</code> + <code>transaction_id</code>. الحجز يبقى <code>pending_payment</code> لحين callback البوابة. بعد الـ callback الناجح → <span class="badge b-system">IN_PROGRESS</span> + إشعار</dd>
+      <dt>لو السعر = 0</dt><dd>يُعامَل تلقائياً كـ <code>wallet</code> — ينتقل إلى IN_PROGRESS فوراً بدون خصم</dd>
+    </dl>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="card provider">
+    <div class="head">
+      <span><span class="badge b-provider">PROVIDER</span> &nbsp; 5. إصدار فاتورة إضافية (اختياري)</span>
+      <span class="ep"><span class="method m-post">POST</span> provider/bookings/{id}/additional-invoice</span>
+    </div>
+    <dl>
+      <dt>Body</dt><dd><code>amount</code> (required, numeric > 0) + <code>reason</code> (required, string)</dd>
+      <dt>الشرط</dt><dd>الحالة = <code>in_progress</code> + الفاتورة الإضافية الحالية ليست <code>pending</code> أو <code>accepted</code> (يمكن إصدار جديدة إذا كانت <code>rejected</code> أو <code>paid</code> أو <code>null</code>)</dd>
+      <dt>الناتج</dt><dd>الفاتورة الإضافية تُحفظ على الحجز + إشعار للعميل (BookingAdditionalInvoiceIssued)</dd>
+    </dl>
+  </div>
+
+  <!-- Step 6 -->
+  <div class="card client">
+    <div class="head">
+      <span><span class="badge b-client">CLIENT</span> &nbsp; 6. الرد على الفاتورة الإضافية (اختياري)</span>
+      <span class="ep">
+        <span class="method m-post">POST</span> client/bookings/{id}/additional-invoice/accept
+        &nbsp;|&nbsp;
+        <span class="method m-post">POST</span> client/bookings/{id}/additional-invoice/reject
+      </span>
+    </div>
+    <dl>
+      <dt>الشرط</dt><dd>الحالة = <code>in_progress</code> + <code>additional_invoice_status = pending</code></dd>
+      <dt>القبول</dt><dd>لا body. تبدأ مهلة الدفع (افتراضي 72 ساعة من الإعدادات). الفاتورة → <span class="badge b-warn">ACCEPTED</span></dd>
+      <dt>الرفض</dt><dd>Body: <code>reason</code> (optional). الفاتورة → <span class="badge b-warn">REJECTED</span> — يمكن للمزود إصدار فاتورة جديدة</dd>
+    </dl>
+  </div>
+
+  <!-- Step 7 -->
+  <div class="card client">
+    <div class="head">
+      <span><span class="badge b-client">CLIENT</span> &nbsp; 7. دفع الفاتورة الإضافية (اختياري)</span>
+      <span class="ep"><span class="method m-post">POST</span> client/bookings/{id}/additional-invoice/pay</span>
+    </div>
+    <dl>
+      <dt>Body</dt><dd><code>payment_method</code> ∈ {<code>wallet</code>, <code>online</code>}</dd>
+      <dt>الشرط</dt><dd>الحالة = <code>in_progress</code> + <code>additional_invoice_status</code> ∈ {<code>accepted</code>, <code>payment_overdue</code>}</dd>
+      <dt>الناتج</dt><dd>نفس منطق الدفع العادي. عند النجاح → الفاتورة الإضافية → <span class="badge b-warn">PAID</span></dd>
+      <dt>ملاحظة</dt><dd>إذا انتهت مهلة <code>accepted</code> دون دفع، يُحوَّل تلقائياً إلى <code>payment_overdue</code> عند أي request — لكن لا يزال بإمكان العميل الدفع</dd>
+    </dl>
+  </div>
+
+  <!-- Step 8 -->
+  <div class="card provider">
+    <div class="head">
+      <span><span class="badge b-provider">PROVIDER</span> &nbsp; 8. إنهاء الخدمة</span>
+      <span class="ep"><span class="method m-post">POST</span> provider/bookings/{id}/complete</span>
+    </div>
+    <dl>
+      <dt>الشرط</dt><dd>الحالة = <code>in_progress</code> — وإلا <code>booking_invalid_action</code></dd>
+      <dt>شرط الفاتورة الإضافية</dt><dd>لا توجد فاتورة إضافية بحالة <code>pending</code> أو <code>accepted</code> أو <code>payment_overdue</code> — وإلا <code>booking_pending_additional_invoice</code></dd>
+      <dt>الناتج</dt><dd>الحالة → <span class="badge b-system">COMPLETED</span> + إشعار للعميل (BookingCompleted)</dd>
+      <dt>أثر</dt><dd>يفتح إمكانية التقييم للعميل</dd>
+    </dl>
+  </div>
+
+  <!-- Step 9 -->
+  <div class="card client">
+    <div class="head">
+      <span><span class="badge b-client">CLIENT</span> &nbsp; 9. التقييم</span>
+      <span class="ep"><span class="method m-post">POST</span> client/bookings/{id}/rate</span>
+    </div>
+    <dl>
+      <dt>Body</dt><dd><code>rate</code> (required, integer 1..5) + <code>comment</code> (optional, max:1000)</dd>
+      <dt>الشروط</dt><dd>
+        - الحجز يخص العميل<br>
+        - الحالة = <code>completed</code><br>
+        - لم يُقيَّم سابقاً (يُرفض إذا كان <code>rate</code> موجود بالفعل)
+      </dd>
+      <dt>الناتج</dt><dd>صف في جدول <code>rates</code> مرتبط بالحجز + تحديث متوسط تقييم المزود</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="branches">
+  <h2><span class="num">8</span> المسارات الفرعية</h2>
+
+  <h3>أ. إلغاء العميل (Cancel)</h3>
+  <p>متاح في الحالتين <code>new</code> و<code>pending_payment</code> فقط. بمجرد دفع العميل وانتقال الحجز إلى <code>in_progress</code>، يُغلق زر الإلغاء.</p>
+  <div class="mermaid">
+sequenceDiagram
+  actor C as Client
+  participant API
+  actor P as Provider
+  C->>API: POST client/bookings/{id}/cancel { reason }
+  API-->>C: booking { status: cancelled }
+  API-->>P: إشعار push — تم إلغاء الحجز
+  Note over C,API: reason: string مطلوب، min:3، max:1000
+  </div>
+
+  <div class="callout">
+    <strong>شرط الإلغاء:</strong>
+    يتحقق <code>CancelBookingRequest</code> من أن الحجز في حالة <code>new</code> أو <code>pending_payment</code> قبل وصول الطلب للـ service. لو الحالة <code>in_progress</code> أو <code>completed</code> أو <code>cancelled</code> → يُرفض بخطأ validation <code>booking_cannot_cancel</code>.
+  </div>
+
+  <h3>ب. رفض مقدم الخدمة (Reject)</h3>
+  <p>متاح فقط في الحالة <code>new</code>. عند الرفض، ينتقل الحجز إلى <code>cancelled</code>.</p>
+  <div class="card provider">
+    <div class="head"><span><span class="badge b-provider">PROVIDER</span> &nbsp; رفض الحجز</span><span class="ep"><span class="method m-post">POST</span> provider/bookings/{id}/reject</span></div>
+    <dl>
+      <dt>Body</dt><dd><code>reason</code> (optional string) — سبب الرفض يُحفظ في <code>cancel_reason</code></dd>
+      <dt>الناتج</dt><dd>الحجز → <span class="badge b-system">CANCELLED</span> + إشعار للعميل (BookingRejected)</dd>
+    </dl>
+  </div>
+
+  <h3>ج. دفع عبر بوابة خارجية (Online Payment)</h3>
+  <p>عند اختيار <code>payment_method=online</code>، يعيد الـ API رابط redirect لبوابة الدفع الخارجية. بعد إتمام الدفع، البوابة ترسل callback للـ API فيحدّث الحجز تلقائياً.</p>
+  <div class="mermaid">
+sequenceDiagram
+  autonumber
+  actor C as Client
+  participant API
+  participant PGW as Payment Gateway
+  C->>API: POST client/bookings/{id}/pay { payment_method: online }
+  API->>PGW: إنشاء معاملة دفع
+  PGW-->>API: transaction_id + redirect_url
+  API-->>C: { redirect_url, transaction_id, booking }
+  C->>PGW: يفتح redirect_url في browser
+  PGW-->>C: صفحة الدفع
+  C->>PGW: يُدخل بيانات البطاقة
+  PGW->>API: callback بنتيجة الدفع
+  API-->>C: إشعار push — booking { status: in_progress }
+  Note over API: يحفظ payment_method + paid_at على الحجز
+  </div>
+
+  <div class="callout info">
+    <strong>البوابات المدعومة:</strong>
+    Myfatoorah, Hyperpay, Stripe, PayPal, Paymob, Telr, Clickpay, Alrajhi Bank — يتم اختيار البوابة النشطة من إعدادات النظام. المسار العام للـ callback: <code>GET payment/get-payment-status/{brand_id}</code>.
+  </div>
+
+  <h3>د. دورة الاستفسار (Inquiry)</h3>
+  <p>العميل يُرسل استفساراً عن خدمة مطلوبة ويُحدد الفئة، والمزودون المختارون يردون بالقبول أو الرفض.</p>
+  <div class="mermaid">
+sequenceDiagram
+  autonumber
+  actor C as Client
+  participant API
+  actor P as Provider
+  C->>API: POST client/inquiries { category_id, description, images[], ... }
+  API-->>C: inquiry { status: pending }
+  Note over API,P: يُرسَل إشعار للمزودين المستهدفين
+  P->>API: GET provider/inquiries
+  P->>API: POST provider/inquiries/{id}/accept
+  API-->>C: إشعار — مزود قبل استفسارك
+  alt العميل يرغب في إلغاء الاستفسار
+    C->>API: POST client/inquiries/{id}/cancel
+    API-->>C: inquiry { status: cancelled }
+  end
+  </div>
+
+  <div class="card client">
+    <div class="head"><span><span class="badge b-client">CLIENT</span> &nbsp; Inquiry Endpoints</span></div>
+    <table class="endpoints">
+      <thead><tr><th>Method</th><th>Path</th><th>الوصف</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">client/inquiries</td><td>قائمة استفسارات العميل</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">client/inquiries</td><td>إنشاء استفسار جديد</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">client/inquiries/{id}</td><td>تفاصيل استفسار</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">client/inquiries/{id}/cancel</td><td>إلغاء الاستفسار — فقط في حالة <code>pending</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card provider">
+    <div class="head"><span><span class="badge b-provider">PROVIDER</span> &nbsp; Inquiry Endpoints</span></div>
+    <table class="endpoints">
+      <thead><tr><th>Method</th><th>Path</th><th>الوصف</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">provider/inquiries</td><td>قائمة الاستفسارات الواردة</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">provider/inquiries/{id}</td><td>تفاصيل استفسار</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">provider/inquiries/{id}/accept</td><td>قبول الاستفسار + إشعار للعميل</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">provider/inquiries/{id}/reject</td><td>رفض الاستفسار</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>هـ. إدارة الإعلانات (Provider Ads)</h3>
+  <p>المزود يُنشئ إعلانات ضمن اشتراكه النشط، تخضع لموافقة الأدمن قبل ظهورها للعملاء.</p>
+  <div class="card provider">
+    <div class="head"><span><span class="badge b-provider">PROVIDER</span> &nbsp; Ad Management</span></div>
+    <table class="endpoints">
+      <thead><tr><th>Method</th><th>Path</th><th>الوصف</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">provider/packages</td><td>قائمة باقات الاشتراك المتاحة</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">provider/packages/{id}/subscribe</td><td>الاشتراك في باقة (مع الدفع)</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">provider/subscription</td><td>الاشتراك الحالي + تاريخ الانتهاء</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">provider/ads</td><td>إعلانات المزود الحالي</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">provider/ads</td><td>إنشاء إعلان جديد (يدخل حالة pending حتى موافقة الأدمن)</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">provider/ads/{id}</td><td>تفاصيل إعلان</td></tr>
+        <tr><td><span class="method m-delete">DELETE</span></td><td class="path">provider/ads/{id}</td><td>حذف إعلان (soft delete)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>و. المحفظة (Wallet)</h3>
+  <div class="card client">
+    <div class="head"><span><span class="badge b-client">CLIENT</span> &nbsp; محفظة العميل</span></div>
+    <table class="endpoints">
+      <thead><tr><th>Method</th><th>Path</th><th>الوصف</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">client/wallet</td><td>الرصيد الحالي</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">client/wallet/transactions</td><td>سجل المعاملات (شحن، دفع، استرداد)</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">client/wallet/charge</td><td>شحن المحفظة عبر بوابة دفع — يعيد <code>redirect_url</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card provider">
+    <div class="head"><span><span class="badge b-provider">PROVIDER</span> &nbsp; محفظة المزود</span></div>
+    <table class="endpoints">
+      <thead><tr><th>Method</th><th>Path</th><th>الوصف</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">provider/wallet</td><td>الرصيد الحالي</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">provider/wallet/transactions</td><td>سجل المعاملات</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">provider/wallet/charge</td><td>شحن المحفظة</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">provider/wallet/withdraw</td><td>طلب سحب — يتطلب بنك مضاف مسبقاً</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">provider/bank-account</td><td>بيانات الحساب البنكي للسحب</td></tr>
+        <tr><td><span class="method m-put">PUT</span></td><td class="path">provider/bank-account</td><td>تعديل بيانات الحساب البنكي</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>ز. المفضلة والشكاوى</h3>
+  <div class="card client">
+    <div class="head"><span><span class="badge b-client">CLIENT</span> &nbsp; Favorites &amp; Complaints</span></div>
+    <table class="endpoints">
+      <thead><tr><th>Method</th><th>Path</th><th>الوصف</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">client/favorites</td><td>قائمة المزودين المفضلين</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">client/favorites/toggle</td><td>إضافة/إزالة مزود من المفضلة — body: <code>provider_id</code></td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">client/complains</td><td>شكاوى العميل</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td class="path">client/complains</td><td>رفع شكوى جديدة مع صور اختيارية</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td class="path">client/complains/{id}</td><td>تفاصيل شكوى</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="endpoints">
+  <h2><span class="num">9</span> خريطة الـ Endpoints الكاملة</h2>
+  <p>كل المسارات نسبة إلى <code>{{base-url}}</code> = <code>https://your-domain.com/api/</code>.</p>
+
+  <h3>9.1 الـ API العامة (Global)</h3>
+  <table class="endpoints">
+    <thead><tr><th>Method</th><th>Path</th><th>Auth</th><th>الوصف</th></tr></thead>
+    <tbody>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">settings</td><td>—</td><td>إعدادات التطبيق (اسم، شعار، رابط الدعم...)</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">countries</td><td>—</td><td>قائمة الدول</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">cities</td><td>—</td><td>قائمة المدن</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">countries-with-cities</td><td>—</td><td>الدول مع مدنها متداخلة</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">country/{id}/cities</td><td>—</td><td>مدن دولة محددة</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">about</td><td>—</td><td>صفحة من نحن</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">terms</td><td>—</td><td>الشروط والأحكام</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">privacy</td><td>—</td><td>سياسة الخصوصية</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">socials</td><td>—</td><td>روابط السوشيال ميديا</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">contact/store</td><td>—</td><td>إرسال رسالة تواصل</td></tr>
+    </tbody>
+  </table>
+
+  <h3>9.2 العميل (Client)</h3>
+  <table class="endpoints">
+    <thead><tr><th>Method</th><th>Path</th><th>Auth</th><th>الشروط الرئيسية</th></tr></thead>
+    <tbody>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/register</td><td>—</td><td>تسجيل عميل جديد</td></tr>
+      <tr><td><span class="method m-put">PUT</span></td><td class="path">client/activate</td><td>—</td><td>تفعيل الحساب بـ OTP</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/resend-code</td><td>—</td><td>إعادة إرسال OTP</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/login</td><td>—</td><td>تسجيل الدخول → Sanctum token</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/password/forget</td><td>—</td><td>نسيت كلمة المرور</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/password/check-code</td><td>—</td><td>التحقق من OTP الاسترداد</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/password/reset</td><td>—</td><td>تعيين كلمة مرور جديدة</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/ads</td><td>—</td><td>إعلانات مزودين نشطة + معتمدة</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/providers/categories</td><td>—</td><td>فئات مزودي الخدمة</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/providers</td><td>—</td><td>قائمة المزودين مع بحث وفلترة</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/providers/map</td><td>—</td><td>نقاط الخريطة</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/providers/{id}</td><td>—</td><td>بروفايل مزود كامل</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/providers/{id}/reviews</td><td>—</td><td>تقييمات مزود</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/providers/{id}/ads</td><td>—</td><td>إعلانات مزود محدد</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/providers/{id}/booking-slots</td><td>—</td><td>مواعيد الحجز المتاحة ?days=7</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/profile</td><td>مطلوب</td><td>بيانات العميل</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/update/profile</td><td>مطلوب</td><td>تحديث البيانات الشخصية</td></tr>
+      <tr><td><span class="method m-patch">PATCH</span></td><td class="path">client/change-lang</td><td>مطلوب</td><td>تغيير لغة الحساب</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/logout</td><td>مطلوب</td><td>إنهاء الجلسة</td></tr>
+      <tr><td><span class="method m-delete">DELETE</span></td><td class="path">client/delete-account</td><td>مطلوب</td><td>حذف الحساب</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/bookings</td><td>مطلوب</td><td>?tab=current|past|cancelled</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/bookings</td><td>مطلوب</td><td>ad نشط + مزود معتمد + وقت متاح</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/bookings/dismiss-empty-banner</td><td>مطلوب</td><td>إخفاء بانر "لا حجوزات" للأبد</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/bookings/{id}</td><td>مطلوب</td><td>ملكية الحجز</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/bookings/{id}/pay</td><td>مطلوب</td><td>status=pending_payment؛ payment_method ∈ {wallet, online}</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/bookings/{id}/cancel</td><td>مطلوب</td><td>status ∈ {new, pending_payment}؛ reason مطلوب</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/bookings/{id}/rate</td><td>مطلوب</td><td>status=completed + غير مقيَّم سابقاً</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/bookings/{id}/additional-invoice/accept</td><td>مطلوب</td><td>additional_invoice_status=pending</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/bookings/{id}/additional-invoice/reject</td><td>مطلوب</td><td>additional_invoice_status=pending</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/bookings/{id}/additional-invoice/pay</td><td>مطلوب</td><td>status ∈ {accepted, payment_overdue}</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/inquiries</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/inquiries</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/inquiries/{id}</td><td>مطلوب</td><td>ملكية</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/inquiries/{id}/cancel</td><td>مطلوب</td><td>status=pending فقط</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/wallet</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/wallet/transactions</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/wallet/charge</td><td>مطلوب</td><td>يعيد redirect_url</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/favorites</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/favorites/toggle</td><td>مطلوب</td><td>provider_id في الـ body</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/complains</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">client/complains</td><td>مطلوب</td><td>صور اختيارية</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/complains/{id}</td><td>مطلوب</td><td>ملكية</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/notifications</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">client/count-notifications</td><td>مطلوب</td><td>عدد الإشعارات غير المقروءة</td></tr>
+      <tr><td><span class="method m-patch">PATCH</span></td><td class="path">client/switch-notify</td><td>مطلوب</td><td>تفعيل/إيقاف الإشعارات</td></tr>
+      <tr><td><span class="method m-delete">DELETE</span></td><td class="path">client/delete-notification/{id}</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-delete">DELETE</span></td><td class="path">client/delete-notifications</td><td>مطلوب</td><td>حذف كل الإشعارات</td></tr>
+    </tbody>
+  </table>
+
+  <h3>9.3 مقدم الخدمة (Provider)</h3>
+  <table class="endpoints">
+    <thead><tr><th>Method</th><th>Path</th><th>Auth</th><th>الشروط الرئيسية</th></tr></thead>
+    <tbody>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/register</td><td>—</td><td>تسجيل مزود جديد</td></tr>
+      <tr><td><span class="method m-put">PUT</span></td><td class="path">provider/activate</td><td>—</td><td>تفعيل بـ OTP</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/login</td><td>—</td><td>→ Sanctum token</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/home</td><td>مطلوب</td><td>عدادات: رسائل إدارة، حجوزات، استفسارات، إعلانات، رسائل</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/bookings</td><td>مطلوب</td><td>حجوزات المزود الحالي</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/bookings/{id}/accept</td><td>مطلوب</td><td>status=new</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/bookings/{id}/reject</td><td>مطلوب</td><td>status=new</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/bookings/{id}/additional-invoice</td><td>مطلوب</td><td>status=in_progress + لا فاتورة pending/accepted</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/bookings/{id}/complete</td><td>مطلوب</td><td>status=in_progress + لا فاتورة معلقة</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/work-days</td><td>مطلوب</td><td>جدول العمل الأسبوعي</td></tr>
+      <tr><td><span class="method m-put">PUT</span></td><td class="path">provider/work-days/update-work-days</td><td>مطلوب</td><td>تحديث جدول العمل</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/booking-service</td><td>مطلوب</td><td>إعدادات خدمة الحجز الحالية</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/booking-service/subscribe</td><td>مطلوب</td><td>الاشتراك في خدمة الحجز</td></tr>
+      <tr><td><span class="method m-patch">PATCH</span></td><td class="path">provider/booking-service</td><td>مطلوب</td><td>تحديث إعدادات خدمة الحجز</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/packages</td><td>مطلوب</td><td>باقات الإعلانات</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/packages/{id}/subscribe</td><td>مطلوب</td><td>الاشتراك في باقة إعلانات</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/subscription</td><td>مطلوب</td><td>الاشتراك الحالي</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/ads</td><td>مطلوب</td><td>إعلانات المزود</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/ads</td><td>مطلوب</td><td>يدخل حالة pending للمراجعة</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/ads/{id}</td><td>مطلوب</td><td>ملكية</td></tr>
+      <tr><td><span class="method m-delete">DELETE</span></td><td class="path">provider/ads/{id}</td><td>مطلوب</td><td>ملكية</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/inquiries</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/inquiries/{id}</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/inquiries/{id}/accept</td><td>مطلوب</td><td>status=pending</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/inquiries/{id}/reject</td><td>مطلوب</td><td>status=pending</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/wallet</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/wallet/transactions</td><td>—</td><td>—</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/wallet/charge</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-post">POST</span></td><td class="path">provider/wallet/withdraw</td><td>مطلوب</td><td>يتطلب بنك مضاف</td></tr>
+      <tr><td><span class="method m-get">GET</span></td><td class="path">provider/bank-account</td><td>مطلوب</td><td>—</td></tr>
+      <tr><td><span class="method m-put">PUT</span></td><td class="path">provider/bank-account</td><td>مطلوب</td><td>—</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============================================================ -->
+<section id="notes">
+  <h2><span class="num">10</span> ملاحظات تقنية</h2>
+
+  <div class="card system">
+    <div class="head"><span class="title">نظام Sanctum + التمييز بين Client وProvider</span></div>
+    <p>الـ middleware <code>auth:sanctum</code> يخدم العميل والمزود بنفس الـ guard. التمييز يتم عبر middleware <code>check-auth-type:client</code> أو <code>check-auth-type:provider</code> الذي يتحقق من نوع الـ Eloquent model المرتبط بالـ token. لو أرسل العميل token لـ endpoint خاص بالمزود → يرد بـ 401 أو 403.</p>
+  </div>
+
+  <div class="card system">
+    <div class="head"><span class="title">is-active Middleware</span></div>
+    <p>كل الـ endpoints المصادقة تمر عبر middleware <code>is-active</code> (بعد <code>auth:sanctum</code>) الذي يتحقق من:</p>
+    <ul>
+      <li>الحساب غير محظور (<code>is_blocked = false</code>)</li>
+      <li>الحساب مُفعَّل (<code>is_active = true</code>)</li>
+      <li>البروفايل مكتمل — لو غير مكتمل يُعيد خطأ مع URL لإكمال البروفايل</li>
+    </ul>
+  </div>
+
+  <div class="card system">
+    <div class="head"><span class="title">DB Transactions</span></div>
+    <p>كل write يشمل أكثر من جدول يُلفّ داخل <code>DB::transaction()</code>. مثال: إنشاء الحجز + إشعار المزود. الدفع عبر المحفظة: خصم الرصيد + تحديث الحجز في معاملة واحدة لضمان التوافق.</p>
+  </div>
+
+  <div class="card system">
+    <div class="head"><span class="title">Booking Number التلقائي</span></div>
+    <p>كل حجز يُنشأ تلقائياً له رقم فريد بصيغة <code>BK-YYYYMMDD-XXXXXX</code> (مثل <code>BK-20260525-000123</code>). يتم إنشاؤه عبر Observer أو في <code>creating</code> event على الـ Model.</p>
+  </div>
+
+  <div class="card system">
+    <div class="head"><span class="title">تزامن حالة الفاتورة الإضافية (syncAdditionalInvoiceOverdue)</span></div>
+    <p>عند كل read لحجز (عبر <code>findClientBooking</code> أو <code>findProviderBooking</code>)، يُشغَّل <code>syncAdditionalInvoiceOverdue()</code> الذي يتحقق تلقائياً إذا انتهت مهلة الدفع لفاتورة بحالة <code>accepted</code> ويُحوِّلها إلى <code>payment_overdue</code> ويُرسل إشعاراً للعميل. هذا يضمن دقة البيانات دون الحاجة لـ scheduled job.</p>
+  </div>
+
+  <div class="card system">
+    <div class="head"><span class="title">نظام الإشعارات</span></div>
+    <p>كل transition رئيسي يُطلق إشعار push عبر <code>BookingNotificationService</code>. أنواع الإشعارات:</p>
+    <ul>
+      <li><code>BookingNewReceived</code> — للمزود عند إنشاء حجز جديد</li>
+      <li><code>BookingAccepted</code> — للعميل عند قبول المزود</li>
+      <li><code>BookingRejected</code> — للعميل عند رفض المزود</li>
+      <li><code>BookingPaid</code> — للعميل والمزود بعد إتمام الدفع</li>
+      <li><code>BookingCompleted</code> — للعميل عند إنهاء الخدمة</li>
+      <li><code>BookingCancelled</code> — للمزود عند إلغاء العميل</li>
+      <li><code>BookingAdditionalInvoiceIssued</code> — للعميل عند إصدار فاتورة إضافية</li>
+      <li><code>BookingAdditionalInvoicePaymentDue</code> — للعميل عند انتهاء مهلة الدفع</li>
+    </ul>
+  </div>
+
+  <div class="card system">
+    <div class="head"><span class="title">رسائل الفشل الشائعة</span></div>
+    <table class="endpoints">
+      <thead><tr><th>المفتاح (lang key)</th><th>الموقف</th></tr></thead>
+      <tbody>
+        <tr><td><code>booking_payment_not_required</code></td><td>محاولة دفع حجز ليس في حالة <code>pending_payment</code></td></tr>
+        <tr><td><code>booking_invalid_action</code></td><td>محاولة قبول / رفض / إنهاء حجز في حالة خاطئة</td></tr>
+        <tr><td><code>booking_cannot_cancel</code></td><td>إلغاء حجز بعد الدفع (حالة in_progress أو completed)</td></tr>
+        <tr><td><code>booking_pending_additional_invoice</code></td><td>محاولة إنهاء حجز له فاتورة إضافية معلقة أو مقبولة أو منتهية المهلة</td></tr>
+        <tr><td><code>additional_invoice_pending_exists</code></td><td>إصدار فاتورة إضافية جديدة بينما توجد فاتورة pending أو accepted</td></tr>
+        <tr><td><code>additional_invoice_payment_not_required</code></td><td>دفع فاتورة إضافية ليست في حالة accepted أو payment_overdue</td></tr>
+        <tr><td><code>insufficient_balance</code></td><td>رصيد المحفظة غير كافٍ عند الدفع بـ wallet</td></tr>
+        <tr><td><code>booking_slot_in_past</code></td><td>اختيار وقت حجز في الماضي</td></tr>
+        <tr><td><code>ad_not_available</code></td><td>الإعلان غير موجود أو غير نشط</td></tr>
+        <tr><td><code>provider_not_available</code></td><td>المزود غير نشط أو محظور أو غير معتمد</td></tr>
+        <tr><td><code>provider_booking_not_available</code></td><td>المزود ليس لديه اشتراك نشط في خدمة الحجز</td></tr>
+        <tr><td><code>booking_slot_unavailable</code></td><td>الموعد محجوز أو خارج ساعات عمل المزود</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card system">
+    <div class="head"><span class="title">بوابات الدفع المدعومة</span></div>
+    <p>يدعم النظام متعدد البوابات عبر <code>PaymentService</code> كـ orchestrator مع driver نشط واحد في كل وقت:</p>
+    <ul>
+      <li><strong>Myfatoorah</strong> — موجه للسوق الخليجي</li>
+      <li><strong>Hyperpay</strong> — Visa / Mada / Mastercard / Apple Pay</li>
+      <li><strong>Stripe</strong> — دولي</li>
+      <li><strong>PayPal</strong> — دولي</li>
+      <li><strong>Paymob</strong> — مصر والمنطقة العربية</li>
+      <li><strong>Telr</strong> — الإمارات والخليج</li>
+      <li><strong>Clickpay</strong> — السعودية</li>
+      <li><strong>Alrajhi Bank</strong> — السعودية</li>
+    </ul>
+    <p>الـ callback URL العام: <code>GET payment/get-payment-status/{brand_id}</code></p>
+  </div>
+</section>
+
+<footer class="page">
+  One Platform · توثيق السايكل الكامل للحجز · مُولَّد يدوياً من مصدر الكود · تحديث: مايو 2026
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'neutral',
+    flowchart: { htmlLabels: true, curve: 'basis' },
+    sequence: { mirrorActors: false, showSequenceNumbers: false },
+    state: { useMaxWidth: true },
+  });
+</script>
+</body>
+</html>

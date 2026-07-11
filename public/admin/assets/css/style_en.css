@@ -1,0 +1,70 @@
+.data-list-view-header .table-responsive .top .dataTables_filter label::after {
+    left: auto;
+	right: 15px !important;
+}
+.clean-input {
+    left: auto !important;
+    right: 10px;
+}
+@media (max-width: 550px) {
+    .header-navbar .navbar-container ul.nav li.dropdown .dropdown-menu {
+        left: auto !important;
+        right: 0 !important;
+        transform: translateX(60%) !important;
+    }
+}
+.btn-searchTable{
+    transform: rotate(360deg);
+
+}
+.searchTable {
+    right: 0;
+    left: unset !important;
+    transform: translateX(100%) !important;
+}
+.searchTable.active{
+    transform: translateX(0) !important;
+}
+select.form-control:not([multiple='multiple']) {
+    background-position: right !important;
+    /*padding-inline-end: 15px;*/
+}
+.clear-input {
+    left: unset !important;
+    right: 10px !important;
+}
+.parent-input-date::after {
+    right: unset ;
+    left: 10px;
+}
+body.vertical-layout.vertical-menu-modern.menu-expanded .main-menu .navigation li.has-sub > a:not(.mm-next):after {
+    transform: rotate(180deg) scaleX(-1) !important;
+}
+
+/* Dashboard — slightly bolder type */
+body#content_body.vertical-layout .content-body,
+body#content_body.vertical-layout .table,
+body#content_body.vertical-layout .breadcrumb,
+body#content_body.vertical-layout .card,
+body#content_body.vertical-layout .header-navbar,
+body#content_body.vertical-layout .footer {
+    font-weight: 700 !important;
+}
+
+/* Sidebar labels — slightly bolder */
+body#content_body.vertical-layout .main-menu .navigation .menu-title,
+body#content_body.vertical-layout .main-menu .navigation > li.nav-item > a,
+body#content_body.vertical-layout .main-menu .navigation .menu-content > li > a {
+    font-weight: 800 !important;
+}
+
+body#content_body.vertical-layout h1,
+body#content_body.vertical-layout h2,
+body#content_body.vertical-layout h3,
+body#content_body.vertical-layout h4,
+body#content_body.vertical-layout h5,
+body#content_body.vertical-layout h6,
+body#content_body.vertical-layout .card-title,
+body#content_body.vertical-layout .content-header-title {
+    font-weight: 800 !important;
+}

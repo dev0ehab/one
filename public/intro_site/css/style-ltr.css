@@ -1,0 +1,37 @@
+/* English / LTR overrides */
+
+body {
+    direction: ltr;
+    text-align: left;
+    font-family: "Plus Jakarta Sans", "Cairo", "Segoe UI", system-ui, sans-serif;
+}
+
+.intro-hero-slide__grid {
+    direction: ltr;
+}
+
+.intro-about__visual img:last-child {
+    left: unset;
+    right: 0;
+}
+
+.intro-lang .dropdown-menu {
+    right: auto;
+    left: 0;
+}
+
+@media (max-width: 991.98px) {
+    .nav_bar {
+        right: unset;
+        left: 0;
+        transform: translateX(-100%);
+    }
+
+    .nav_bar.active {
+        transform: translateX(0);
+    }
+}
+
+.btn-main i.fa-long-arrow-alt-left {
+    transform: scaleX(-1);
+}

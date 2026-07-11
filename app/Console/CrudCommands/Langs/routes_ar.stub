@@ -1,0 +1,10 @@
+    '{{smallPluralName}}' => [
+        'index'          => '{{pluralAr}}',
+        'create_page'    => 'صفحة اضافة {{singularAr}}',
+        'create'         => 'اضافة {{singularAr}}',
+        'edit_page'      => 'صفحة تعديل {{singularAr}}',
+        'edit'           => 'صفحة تعديل {{singularAr}}',
+        'show'           => 'صفحة عرض {{singularAr}}',
+        'delete'         => 'حذف {{singularAr}}',
+        'delete_all'     => 'حذف العديد  من {{pluralAr}}',
+    ],
